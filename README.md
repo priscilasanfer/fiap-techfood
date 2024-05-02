@@ -53,7 +53,8 @@ No merging todas as mudanças será automaticamente integradas pelo Github Actio
 
 Para executar o sistema, siga as instruções abaixo:
 
-1. Clone o repositório do TechFood.
-2. Certifique-se de ter o Docker e o Docker Compose instalados em seu ambiente.
-3. Execute o comando `docker-compose up` para subir o ambiente completo.
-4. Acesse a documentação da API através do Swagger para começar a interagir com o sistema.
+1. Certifique-se de ter o Docker e o Docker Compose instalados em seu computador.
+2. Clone o repositório, no terminal executando o comando: `$ git clone https://github.com/priscilasanfer/fiap-techfood.git`
+3. Entre na pasta do projeto: `$ cd techfood` 
+4. Execute o comando `$ docker-compose up -d` para subir o ambiente completo em modo detached.
+5. Acesse a documentação da API através do Swagger para começar a interagir com o sistema.
