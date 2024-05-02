@@ -1,6 +1,7 @@
 package br.com.fiap.techfood.techfood.infra.entity
 
 import br.com.fiap.techfood.techfood.domain.dto.ProductDTO
+import br.com.fiap.techfood.techfood.domain.enums.CategoryEnum
 import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
@@ -13,8 +14,11 @@ class Product(
     private val id: Long = 0,
     private val name: String,
     private val description: String,
-    private var price: String
+    private val price: String,
+    private val category: CategoryEnum,
+    private val imageURL: String,
+
 ) {
-    constructor(name: String, description: String, price: String) : this(0, name, description, price)
-    fun toProduct() = ProductDTO(this.name, this.description, this.price)
+    constructor(name: String, description: String, price: String, category: CategoryEnum, imageURL: String ) : this(0, name, description, price, category, imageURL) {}
+    fun toProduct() = ProductDTO(this.name, this.description, this.price, this.category, this.imageURL)
 }
