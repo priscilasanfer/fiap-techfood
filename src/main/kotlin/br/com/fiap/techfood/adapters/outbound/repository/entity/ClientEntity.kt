@@ -1,13 +1,13 @@
-package br.com.fiap.techfood.techfood.infra.entity
+package br.com.fiap.techfood.adapters.outbound.repository.entity
 
-import br.com.fiap.techfood.techfood.domain.dto.ClientDTO
+import br.com.fiap.techfood.adapters.dto.ClientDTO
 import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 
 @Entity
-class Client(
+class ClientEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private val id: Long = 0,

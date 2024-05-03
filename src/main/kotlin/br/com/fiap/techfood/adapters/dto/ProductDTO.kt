@@ -1,6 +1,6 @@
-package br.com.fiap.techfood.techfood.domain.dto
+package br.com.fiap.techfood.adapters.dto
 
-import br.com.fiap.techfood.techfood.domain.enums.CategoryEnum
+import br.com.fiap.techfood.application.core.domain.enums.CategoryEnum
 
 data class ProductDTO(
     val name : String,

@@ -1,4 +1,4 @@
-package br.com.fiap.techfood.techfood.domain.enums
+package br.com.fiap.techfood.application.core.domain.enums
 
 enum class CategoryEnum(val categoryName: String, val id: Int) {
     SNACK("Lanche", 1),

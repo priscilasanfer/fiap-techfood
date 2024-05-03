@@ -55,6 +55,7 @@ Para executar o sistema, siga as instruções abaixo:
 
 1. Certifique-se de ter o Docker e o Docker Compose instalados em seu computador.
 2. Clone o repositório, no terminal executando o comando: `$ git clone https://github.com/priscilasanfer/fiap-techfood.git`
-3. Entre na pasta do projeto: `$ cd techfood` 
-4. Execute o comando `$ docker-compose up -d` para subir o ambiente completo em modo detached.
-5. Acesse a documentação da API através do Swagger para começar a interagir com o sistema.
+3. Entre na pasta do projeto: `$ cd fiap-techfood`
+4. Build o projeto rodando o comando `$ mvn install -DskipTests`
+5. Execute o comando `$ docker compose up --build -d` para subir o ambiente completo em modo detached.
+6. Acesse a documentação da API através do Swagger para começar a interagir com o sistema.
