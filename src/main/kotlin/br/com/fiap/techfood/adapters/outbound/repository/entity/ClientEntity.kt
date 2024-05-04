@@ -1,20 +1,21 @@
 package br.com.fiap.techfood.adapters.outbound.repository.entity
 
-import br.com.fiap.techfood.adapters.dto.ClientDTO
-import jakarta.persistence.Entity
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.GenerationType
-import jakarta.persistence.Id
+import jakarta.persistence.*
+import java.util.UUID
 
 @Entity
+@Table(name = "clients")
 class ClientEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private val id: Long = 0,
-    private val cpf: String,
-    private val name: String,
+    private val id: UUID,
+
+    @Column(nullable = false, unique = true)
+    private var cpf: String,
+
+    @Column(nullable = false)
+    private var name: String,
+
+    @Column(nullable = false, unique = true)
     private var email: String
-) {
-    constructor(cpf: String, name: String, email: String) : this(0, cpf, name, email)
-    fun toClient() = ClientDTO(this.cpf, this.name, this.email)
-}
+)
