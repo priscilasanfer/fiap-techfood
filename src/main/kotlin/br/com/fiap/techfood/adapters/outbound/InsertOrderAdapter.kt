@@ -4,7 +4,7 @@ import br.com.fiap.techfood.adapters.outbound.repository.OrderRepository
 import br.com.fiap.techfood.adapters.outbound.repository.mapper.OrderEntityMapper
 import br.com.fiap.techfood.application.core.domain.Client
 import br.com.fiap.techfood.application.core.domain.Order
-import br.com.fiap.techfood.application.ports.outbound.InsertOrderOutputPort
+import br.com.fiap.techfood.application.ports.outbound.order.InsertOrderOutputPort
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 

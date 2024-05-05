@@ -1,8 +1,8 @@
-package br.com.fiap.techfood.application.ports.outbound
+package br.com.fiap.techfood.application.ports.inbound.order
 
 import br.com.fiap.techfood.application.core.domain.Client
 import br.com.fiap.techfood.application.core.domain.Order
 
-interface InsertOrderOutputPort {
+interface InsertOrderInputPort {
     fun insert(order: Order?, client: Client?): Order?
 }

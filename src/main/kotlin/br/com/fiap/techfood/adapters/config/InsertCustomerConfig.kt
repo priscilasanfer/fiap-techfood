@@ -1,7 +1,7 @@
 package br.com.fiap.techfood.adapters.config
 
-import br.com.fiap.techfood.application.core.usercase.InsertOrderUserCase
-import br.com.fiap.techfood.application.ports.outbound.InsertOrderOutputPort
+import br.com.fiap.techfood.application.core.usercase.order.InsertOrderUserCase
+import br.com.fiap.techfood.application.ports.outbound.order.InsertOrderOutputPort
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 
