@@ -6,19 +6,20 @@ import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
+import java.math.BigDecimal
 
 @Entity
 class ProductEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private val id: Long = 0,
-    private val name: String,
-    private val description: String,
-    private val price: String,
-    private val category: CategoryEnum,
-    private val imageURL: String,
+    var name: String,
+    var description: String,
+    var price: BigDecimal,
+    var category: CategoryEnum,
+    var imageURL: String,
 
     ) {
-    constructor(name: String, description: String, price: String, category: CategoryEnum, imageURL: String ) : this(0, name, description, price, category, imageURL) {}
+    constructor(name: String, description: String, price: BigDecimal, category: CategoryEnum, imageURL: String ) : this(0, name, description, price, category, imageURL) {}
     fun toProduct() = ProductDTO(this.name, this.description, this.price, this.category, this.imageURL)
 }
