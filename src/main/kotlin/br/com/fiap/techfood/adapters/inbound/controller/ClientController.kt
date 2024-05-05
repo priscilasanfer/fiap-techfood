@@ -4,6 +4,7 @@ import br.com.fiap.techfood.adapters.dto.ClientDTO
 import br.com.fiap.techfood.adapters.inbound.mapper.ClientMapper
 import br.com.fiap.techfood.application.ports.inbound.ClientInboundPort
 import jakarta.validation.Valid
+import org.springframework.dao.DataIntegrityViolationException
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -16,11 +17,17 @@ class ClientController(
 
 ) {
     @PostMapping
-    fun save(@RequestBody @Valid clientDTO: ClientDTO): ResponseEntity<ClientDTO> {
-        val clientDomain = clientMapper.toOrderDomain(clientDTO)
-        val clientDomainSaved = clientInboundPort.save(clientDomain)
-        val clientDTOSaved = clientMapper.toClientDTO(clientDomainSaved)
-        return ResponseEntity.status(HttpStatus.CREATED).body(clientDTOSaved)
+    fun save(@RequestBody @Valid clientDTO: ClientDTO): ResponseEntity<Any> {
+        try {
+
+            val clientDomain = clientMapper.toOrderDomain(clientDTO)
+            val clientDomainSaved = clientInboundPort.save(clientDomain)
+            val clientDTOSaved = clientMapper.toClientDTO(clientDomainSaved)
+            return ResponseEntity.status(HttpStatus.CREATED).body(clientDTOSaved)
+        } catch (ex: DataIntegrityViolationException) {
+            val errorDetails = mapOf("error" to "Data Integrity Violation", "message" to "CPF or Email already exists.")
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(errorDetails)
+        }
     }
 }
 
