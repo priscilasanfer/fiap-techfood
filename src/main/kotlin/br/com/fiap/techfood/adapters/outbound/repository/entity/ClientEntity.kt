@@ -8,14 +8,14 @@ import java.util.UUID
 class ClientEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private val id: UUID,
+    var id: UUID,
 
     @Column(nullable = false, unique = true)
-    private var cpf: String,
+    var cpf: String,
 
     @Column(nullable = false)
-    private var name: String,
+    var name: String,
 
     @Column(nullable = false, unique = true)
-    private var email: String
+    var email: String
 )

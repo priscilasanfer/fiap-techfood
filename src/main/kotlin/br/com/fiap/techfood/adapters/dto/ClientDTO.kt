@@ -10,7 +10,7 @@ data class ClientDTO(
     var cpf: String,
 
     @NotNull
-    var nome: String,
+    var name: String,
 
     @NotNull
     @Email
