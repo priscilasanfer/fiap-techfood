@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component
 
 @Component
 class ClientMapper {
-    fun toOrderDomain(clientDTO: ClientDTO): ClientDomain {
+    fun toClientDomain(clientDTO: ClientDTO): ClientDomain {
         return ClientDomain(
             cpf = clientDTO.cpf,
             name = clientDTO.name,
