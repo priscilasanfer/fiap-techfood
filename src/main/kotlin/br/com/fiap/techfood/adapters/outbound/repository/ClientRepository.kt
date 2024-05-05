@@ -5,5 +5,5 @@ import br.com.fiap.techfood.application.core.domain.ClientDomain
 import org.springframework.data.jpa.repository.JpaRepository
 
 interface ClientRepository : JpaRepository<ClientEntity?, Long?>{
-    fun save(client: ClientDomain): ClientDomain
+    fun save(client: ClientDomain): ClientEntity
 }

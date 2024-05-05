@@ -7,12 +7,12 @@ import org.jetbrains.annotations.NotNull
 data class ClientDTO(
     @NotNull
     @CPF
-    var cpf: String,
+    var cpf: String= "",
 
     @NotNull
-    var name: String,
+    var name: String= "",
 
     @NotNull
     @Email
-    var email: String
+    var email: String= ""
 )
