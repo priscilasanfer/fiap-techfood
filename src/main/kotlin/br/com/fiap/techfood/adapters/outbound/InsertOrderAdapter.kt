@@ -1,9 +1,9 @@
 package br.com.fiap.techfood.adapters.outbound
 
 import br.com.fiap.techfood.adapters.outbound.repository.OrderRepository
-import br.com.fiap.techfood.adapters.outbound.repository.mapper.OrderEntityMapper
-import br.com.fiap.techfood.application.core.domain.ClientDomain
-import br.com.fiap.techfood.application.core.domain.Order
+import br.com.fiap.techfood.adapters.outbound.repository.mappers.OrderEntityMapper
+import br.com.fiap.techfood.application.core.domains.ClientDomain
+import br.com.fiap.techfood.application.core.domains.Order
 import br.com.fiap.techfood.application.ports.outbound.InsertOrderOutputPort
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service

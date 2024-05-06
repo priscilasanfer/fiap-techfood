@@ -1,4 +1,4 @@
-package br.com.fiap.techfood.application.core.domain
+package br.com.fiap.techfood.application.core.domains
 
 import java.util.*
 

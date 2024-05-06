@@ -1,8 +1,8 @@
-package br.com.fiap.techfood.adapters.inbound.controller
+package br.com.fiap.techfood.adapters.inbound.controllers
 
-import br.com.fiap.techfood.adapters.dto.ClientDTO
-import br.com.fiap.techfood.adapters.inbound.mapper.ClientMapper
-import br.com.fiap.techfood.application.core.domain.PageInfo
+import br.com.fiap.techfood.adapters.dtos.ClientDTO
+import br.com.fiap.techfood.adapters.inbound.mappers.ClientMapper
+import br.com.fiap.techfood.application.core.domains.PageInfo
 import br.com.fiap.techfood.application.ports.inbound.ClientInboundPort
 import jakarta.validation.Valid
 import org.springframework.beans.BeanUtils

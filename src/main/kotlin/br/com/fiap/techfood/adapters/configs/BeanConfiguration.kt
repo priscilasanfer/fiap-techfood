@@ -1,7 +1,7 @@
-package br.com.fiap.techfood.adapters.config
+package br.com.fiap.techfood.adapters.configs
 
 import br.com.fiap.techfood.TechfoodApplication
-import br.com.fiap.techfood.application.core.usercase.ClientUseCase
+import br.com.fiap.techfood.application.core.usecases.ClientUseCase
 import br.com.fiap.techfood.application.ports.outbound.ClientOutboundPort
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.ComponentScan

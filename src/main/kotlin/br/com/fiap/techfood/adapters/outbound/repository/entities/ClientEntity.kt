@@ -1,4 +1,4 @@
-package br.com.fiap.techfood.adapters.outbound.repository.entity
+package br.com.fiap.techfood.adapters.outbound.repository.entities
 
 import jakarta.persistence.*
 import java.util.UUID

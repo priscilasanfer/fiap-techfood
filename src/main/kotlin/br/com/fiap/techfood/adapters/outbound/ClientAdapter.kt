@@ -1,9 +1,10 @@
-package br.com.fiap.techfood.adapters.outbound.repository
+package br.com.fiap.techfood.adapters.outbound
 
-import br.com.fiap.techfood.adapters.outbound.repository.entity.ClientEntity
-import br.com.fiap.techfood.adapters.outbound.repository.mapper.ClientEntityMapper
-import br.com.fiap.techfood.application.core.domain.ClientDomain
-import br.com.fiap.techfood.application.core.domain.PageInfo
+import br.com.fiap.techfood.adapters.outbound.repository.ClientRepository
+import br.com.fiap.techfood.adapters.outbound.repository.entities.ClientEntity
+import br.com.fiap.techfood.adapters.outbound.repository.mappers.ClientEntityMapper
+import br.com.fiap.techfood.application.core.domains.ClientDomain
+import br.com.fiap.techfood.application.core.domains.PageInfo
 import br.com.fiap.techfood.application.ports.outbound.ClientOutboundPort
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Pageable
@@ -11,7 +12,7 @@ import org.springframework.stereotype.Component
 import java.util.*
 
 @Component
-class ClientOutboundPortImpl(
+class ClientAdapter(
     private var clientRepository: ClientRepository,
     private var clientEntityMapper: ClientEntityMapper,
 ) :

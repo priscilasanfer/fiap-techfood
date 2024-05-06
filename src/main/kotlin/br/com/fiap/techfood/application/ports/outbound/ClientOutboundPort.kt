@@ -1,7 +1,7 @@
 package br.com.fiap.techfood.application.ports.outbound
 
-import br.com.fiap.techfood.application.core.domain.ClientDomain
-import br.com.fiap.techfood.application.core.domain.PageInfo
+import br.com.fiap.techfood.application.core.domains.ClientDomain
+import br.com.fiap.techfood.application.core.domains.PageInfo
 import java.util.*
 
 interface ClientOutboundPort {

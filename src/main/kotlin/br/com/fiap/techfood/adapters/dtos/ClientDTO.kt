@@ -1,4 +1,4 @@
-package br.com.fiap.techfood.adapters.dto
+package br.com.fiap.techfood.adapters.dtos
 
 import jakarta.validation.constraints.Email
 import org.hibernate.validator.constraints.br.CPF

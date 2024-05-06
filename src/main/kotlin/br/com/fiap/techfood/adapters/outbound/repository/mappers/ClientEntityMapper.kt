@@ -1,7 +1,7 @@
-package br.com.fiap.techfood.adapters.outbound.repository.mapper
+package br.com.fiap.techfood.adapters.outbound.repository.mappers
 
-import br.com.fiap.techfood.adapters.outbound.repository.entity.ClientEntity
-import br.com.fiap.techfood.application.core.domain.ClientDomain
+import br.com.fiap.techfood.adapters.outbound.repository.entities.ClientEntity
+import br.com.fiap.techfood.application.core.domains.ClientDomain
 import org.springframework.stereotype.Component
 
 @Component

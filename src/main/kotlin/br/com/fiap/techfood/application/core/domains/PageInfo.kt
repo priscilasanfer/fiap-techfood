@@ -1,4 +1,4 @@
-package br.com.fiap.techfood.application.core.domain
+package br.com.fiap.techfood.application.core.domains
 
 class PageInfo {
     var pageNumber: Int = 0

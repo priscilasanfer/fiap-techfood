@@ -1,7 +1,7 @@
-package br.com.fiap.techfood.adapters.inbound.mapper
+package br.com.fiap.techfood.adapters.inbound.mappers
 
-import br.com.fiap.techfood.adapters.dto.ClientDTO
-import br.com.fiap.techfood.application.core.domain.ClientDomain
+import br.com.fiap.techfood.adapters.dtos.ClientDTO
+import br.com.fiap.techfood.application.core.domains.ClientDomain
 import org.springframework.stereotype.Component
 
 @Component

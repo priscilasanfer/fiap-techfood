@@ -1,6 +1,6 @@
-package br.com.fiap.techfood.application.core.domain
+package br.com.fiap.techfood.application.core.domains
 
-import br.com.fiap.techfood.application.core.domain.enums.CategoryEnum
+import br.com.fiap.techfood.application.core.domains.enums.CategoryEnum
 import java.math.BigDecimal
 
 data class Product (
