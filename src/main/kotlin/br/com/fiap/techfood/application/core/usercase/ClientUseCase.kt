@@ -18,4 +18,8 @@ class ClientUseCase(private var clientOutboundPort: ClientOutboundPort) : Client
     override fun findAll(pageInfo: PageInfo): List<ClientDomain> {
         return clientOutboundPort.findAll(pageInfo)
     }
+
+    override fun delete(clientDomain: ClientDomain) {
+        return clientOutboundPort.delete(clientDomain)
+    }
 }

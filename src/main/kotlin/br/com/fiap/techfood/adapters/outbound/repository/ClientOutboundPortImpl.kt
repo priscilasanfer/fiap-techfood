@@ -41,4 +41,9 @@ class ClientOutboundPortImpl(
             .filterNotNull()
             .map { entity -> clientEntityMapper.toClientDomain(entity) }
     }
+
+    override fun delete(clientDomain: ClientDomain) {
+        val clientEntity = clientEntityMapper.toClientEntity(clientDomain)
+        clientRepository.delete(clientEntity)
+    }
 }

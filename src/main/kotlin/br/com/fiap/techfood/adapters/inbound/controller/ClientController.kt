@@ -66,5 +66,20 @@ class ClientController(
             )
         )
     }
+
+    @DeleteMapping("/{clientId}")
+    fun deleteClient(@PathVariable(value = "clientId") clientId: UUID): ResponseEntity<Any> {
+        val clientDomainOptional = clientInboundPort.findById(clientId)
+
+        if (clientDomainOptional.isEmpty) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Client not found.")
+        }
+
+        clientInboundPort.delete(clientDomainOptional.get())
+
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Client deleted successfully.")
+    }
+
+
 }
 

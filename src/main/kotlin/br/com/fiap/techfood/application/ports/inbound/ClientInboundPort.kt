@@ -8,4 +8,5 @@ interface ClientInboundPort {
     fun save(clientDomain: ClientDomain): ClientDomain
     fun findById(id: UUID): Optional<ClientDomain>
     fun findAll(pageInfo: PageInfo): List<ClientDomain>
+    fun delete(clientDomain: ClientDomain)
 }
