@@ -2,7 +2,6 @@ package br.com.fiap.techfood.adapters.inbound.controller
 
 import br.com.fiap.techfood.adapters.dto.ClientDTO
 import br.com.fiap.techfood.adapters.inbound.mapper.ClientMapper
-import br.com.fiap.techfood.application.core.domain.ClientDomain
 import br.com.fiap.techfood.application.core.domain.PageInfo
 import br.com.fiap.techfood.application.ports.inbound.ClientInboundPort
 import jakarta.validation.Valid
@@ -42,26 +41,31 @@ class ClientController(
 
     @GetMapping("/{clientId}")
     fun findById(@PathVariable(value = "clientId") clientId: UUID): ResponseEntity<Any> {
-        val courseOptionalOptional = clientInboundPort.findById(clientId)
+        val clientDomainOptional = clientInboundPort.findById(clientId)
 
-        if (courseOptionalOptional.isEmpty) {
+        if (clientDomainOptional.isEmpty) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Client not found.")
         }
-        return ResponseEntity.status(HttpStatus.OK).body(courseOptionalOptional.get())
+
+        val clientDTO = clientMapper.toClientDTO(clientDomainOptional.get())
+
+        return ResponseEntity.status(HttpStatus.OK).body(clientDTO)
     }
 
     @GetMapping
     fun findAllClients(
         @PageableDefault(page = 0, size = 10, direction = Sort.Direction.ASC) pageable: Pageable?
-    ): ResponseEntity<Page<ClientDomain>> {
+    ): ResponseEntity<Page<ClientDTO>> {
         val pageInfo = PageInfo()
         BeanUtils.copyProperties(pageable!!, pageInfo)
 
         val clientDomainList = clientInboundPort.findAll(pageInfo)
 
-        return ResponseEntity.status(HttpStatus.OK).body<Page<ClientDomain>>(
-            PageImpl<ClientDomain>(
-                clientDomainList,
+        val clientDTOList = clientDomainList.map { domain -> clientMapper.toClientDTO(domain) }
+
+        return ResponseEntity.status(HttpStatus.OK).body<Page<ClientDTO>>(
+            PageImpl<ClientDTO>(
+                clientDTOList,
                 pageable, clientDomainList.size.toLong()
             )
         )
@@ -78,6 +82,30 @@ class ClientController(
         clientInboundPort.delete(clientDomainOptional.get())
 
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Client deleted successfully.")
+    }
+
+
+    @PutMapping("/{clientId}")
+    fun updateClient(
+        @PathVariable(value = "clientId") clientId: UUID,
+        @RequestBody clientDto: @Valid ClientDTO
+    ): ResponseEntity<Any> {
+
+        val clientDomainOptional = clientInboundPort.findById(clientId)
+
+        if (clientDomainOptional.isEmpty) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Client not found.")
+        }
+
+        val clientDomain = clientDomainOptional.get()
+        clientDomain.name = clientDto.name
+        clientDomain.cpf = clientDto.cpf
+        clientDomain.email = clientDto.email
+
+        val clientDomainSaved = clientInboundPort.save(clientDomain)
+        val clientDTO = clientMapper.toClientDTO(clientDomainSaved)
+
+        return ResponseEntity.status(HttpStatus.OK).body(clientDTO)
     }
 
 
