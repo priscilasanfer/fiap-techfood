@@ -3,12 +3,14 @@ package br.com.fiap.techfood.application.core.domains
 import java.util.UUID
 
 //TODO
-class Order {
+class OrderDomain {
 
     var id: UUID? = null;
     var name: String? = null;
     var items: List<OrderItem>? = null;
-    private var status: Int? = null;
+    var status: Int? = null;
+    var isAnonymous: Boolean? = true;
+    var client: ClientDomain? = null;
 
 
 }

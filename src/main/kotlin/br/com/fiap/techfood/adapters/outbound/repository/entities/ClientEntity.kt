@@ -17,5 +17,8 @@ class ClientEntity(
     var name: String,
 
     @Column(nullable = false, unique = true)
-    var email: String
+    var email: String,
+
+    @OneToMany(mappedBy = "client")
+    var orders: MutableList<OrderEntity> = mutableListOf()
 )

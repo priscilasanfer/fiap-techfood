@@ -1,33 +1,60 @@
 package br.com.fiap.techfood.adapters.outbound.repository.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import br.com.fiap.techfood.application.core.domains.enums.OrderStatusEnum;
+import jakarta.persistence.*;
+import lombok.Data;
 
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
+@Data
 @Entity
+@Table(name = "TB_ORDERS")
 public class OrderEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
+
+    @Column(nullable = false)
     private String name;
 
-    public UUID getId() {
-        return id;
+    @Column(nullable = false)
+    private Integer status;
+    private Boolean isAnonymous;
+
+    @OneToMany(mappedBy = "id.order")
+    private List<OrderItemEntity> items;
+
+    @ManyToOne
+    @JoinColumn(name = "client_id")
+    private ClientEntity client;
+
+    @Column(nullable = false)
+    private LocalDateTime creationDate;
+
+    @Column(nullable = false)
+    private LocalDateTime lastUpdateDate;
+
+    @PrePersist
+    private void beforePersist() {
+        this.creationDate = LocalDateTime.now();
+        this.lastUpdateDate = LocalDateTime.now();
     }
 
-    public void setId(UUID id) {
-        this.id = id;
+    @PreUpdate
+    private void beforeUpdate() {
+        this.lastUpdateDate = LocalDateTime.now();
     }
 
-    public String getName() {
-        return name;
+    private OrderStatusEnum getStatus() {
+        return OrderStatusEnum.toEnum(this.status);
     }
 
-    public void setName(String name) {
-        this.name = name;
+    private void setStatus(OrderStatusEnum status) {
+        this.status = status.getCode();
     }
+
+
 }
