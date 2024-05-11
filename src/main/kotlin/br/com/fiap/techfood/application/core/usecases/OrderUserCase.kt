@@ -12,10 +12,12 @@ import br.com.fiap.techfood.application.ports.outbound.ProductOutboundPort
 import java.util.*
 import java.util.stream.Collectors
 
-class OrderUserCase : OrderInboundPort {
-    private val cpfValidationOutputPort: CpfValidationOutputPort? = null
-    private val orderOutboundPort: OrderOutboundPort? = null
-    private val productOutboundPort: ProductOutboundPort? = null
+class OrderUserCase (
+    private val cpfValidationOutputPort: CpfValidationOutputPort? = null,
+    private val orderOutboundPort: OrderOutboundPort? = null,
+    private val productOutboundPort: ProductOutboundPort? = null,
+) : OrderInboundPort {
+
 
     override fun save(cartDomain: CartDomain, clientDomain: ClientDomain?): OrderDomain {
         var orderDomain = OrderDomain()
@@ -26,7 +28,7 @@ class OrderUserCase : OrderInboundPort {
         }
 
         //esse problema não aconteceria com um frontend, mas tem que validar novamente
-        if (clientDomain != null && clientDomain.cpf.isNotBlank()) {
+        if (clientDomain?.cpf != null && clientDomain.cpf!!.isNotBlank()) {
             val isValidCpf = cpfValidationOutputPort!!.isValid(clientDomain.cpf)
             if (!isValidCpf) {
                 throw RuntimeException("CPF não valido")

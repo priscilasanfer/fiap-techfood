@@ -28,7 +28,7 @@ class ClientEntity {
         this.id = id;
     }
 
-    constructor(id: UUID, cpf: String, name: String, email: String) {
+    constructor(id: UUID?, cpf: String?, name: String?, email: String?) {
         this.id = id;
         this.cpf = cpf;
         this.name = name;
