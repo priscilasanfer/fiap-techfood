@@ -13,6 +13,7 @@ class OrderEntityMapper {
         orderEntity.items = toOrderItemEntityList(orderDomain.items!!, orderEntity)
         orderEntity.setStatus(orderDomain.status);
         orderEntity.isAnonymous = orderDomain.isAnonymous;
+        orderEntity.name = orderDomain.name
 
         if (orderDomain.isAnonymous!! && orderDomain.client != null) {
             orderEntity.client = ClientEntity(orderDomain.id!!);
@@ -21,10 +22,16 @@ class OrderEntityMapper {
         return orderEntity;
     }
 
-    fun toOrderDomain(order: OrderEntity?): OrderDomain {
-        val domain = OrderDomain();
+    fun toOrderDomain(orderEntity: OrderEntity): OrderDomain {
+        val orderDomain = OrderDomain();
+        orderDomain.id = orderEntity.id
+        //
+        //orderDomain.items = toOrderItemDomainList(orderEntity.items)
+        orderDomain.status = orderEntity.getStatus()!!;
+        orderDomain.isAnonymous = orderEntity.isAnonymous;
+        orderDomain.name = orderEntity.name
 
-        return domain;
+        return orderDomain;
     }
 
     fun toOrderItemEntityList(orderItemDomain: List<OrderItemDomain>, orderEntity: OrderEntity): List<OrderItemEntity> {

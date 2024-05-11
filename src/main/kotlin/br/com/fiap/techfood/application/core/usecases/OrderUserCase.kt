@@ -22,6 +22,7 @@ class OrderUserCase (
     override fun save(cartDomain: CartDomain, clientDomain: ClientDomain?): OrderDomain {
         var orderDomain = OrderDomain()
         orderDomain.status = OrderStatusEnum.AWAITING_PAYMENT
+        orderDomain.name = "TesteNome";
 
         if (cartDomain.cartProducts == null || cartDomain.cartProducts.isEmpty()) {
             throw RuntimeException("Nenhum produto foi selecionado.")
@@ -40,7 +41,11 @@ class OrderUserCase (
 
         //checkIfAllProductsExists
         val productIdList = cartDomain.cartProducts.stream().map(OrderItemDomain::productId).collect(Collectors.toSet())
+        println("ProductId LIst");
+        println(productIdList)
         val productList = productOutboundPort!!.findAllByIds(productIdList)
+        println("Produtos LIst");
+        println(productList)
         if (productList.size != productIdList.size) {
             //não foram encontrados todos os produtos
             //TODO POSSIVEL fazer logica para pegar id

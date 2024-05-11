@@ -5,7 +5,9 @@ import br.com.fiap.techfood.adapters.dtos.OrderDto
 import br.com.fiap.techfood.adapters.inbound.mappers.CartMapper
 import br.com.fiap.techfood.adapters.inbound.mappers.ClientMapper
 import br.com.fiap.techfood.adapters.inbound.mappers.OrderMapper
+import br.com.fiap.techfood.application.core.domains.CartDomain
 import br.com.fiap.techfood.application.core.domains.ClientDomain
+import br.com.fiap.techfood.application.core.domains.OrderDomain
 import br.com.fiap.techfood.application.ports.inbound.InsertOrderInputPort
 import br.com.fiap.techfood.application.ports.inbound.OrderInboundPort
 import org.springframework.beans.factory.annotation.Autowired
@@ -14,12 +16,13 @@ import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import java.util.*
 
 @RestController
-@RequestMapping("/order")
+@RequestMapping("/orders")
 class OrderController(
     @Autowired private val orderInboundPort: OrderInboundPort,
     @Autowired private val orderMapper: OrderMapper,
@@ -28,17 +31,18 @@ class OrderController(
 ) {
 
     //TODO @Valid
+    //TODO DTO DE RETORNO
     @PostMapping
-    fun makeOrder(orderCreateDto: OrderCreateDto): ResponseEntity<Void> {
-        val cartDomain = cartMapper.toCartDomain(orderCreateDto.cart);
+    fun makeOrder(@RequestBody orderCreateDto: OrderCreateDto): ResponseEntity<OrderDomain> {
+        var cartDomain: CartDomain = cartMapper.toCartDomain(orderCreateDto.cart!!);
         var clientDomain: ClientDomain? = null
 
         if (orderCreateDto.client != null) {
             clientDomain = clientMapper.toClientDomain(orderCreateDto.client!!);
         }
 
-        orderInboundPort.save(cartDomain, clientDomain)
-        return ResponseEntity.ok().build();
+        val response = orderInboundPort.save(cartDomain, clientDomain)
+        return ResponseEntity.ok().body(response);
     }
 
     @GetMapping("/approved")

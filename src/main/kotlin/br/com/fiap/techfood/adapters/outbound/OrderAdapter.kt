@@ -28,12 +28,12 @@ class OrderAdapter : OrderOutboundPort {
 
     override fun findById(id: UUID): Optional<OrderDomain> {
         val optional = orderRepository!!.findById(id)
-        return optional.map { orderEntity: OrderEntity? -> orderEntityMapper!!.toOrderDomain(orderEntity) }
+        return optional.map { orderEntity: OrderEntity? -> orderEntityMapper!!.toOrderDomain(orderEntity!!) }
     }
 
     override fun findAllByOrderStatus(status: OrderStatusEnum): List<OrderDomain> {
         val orderEntityList = orderRepository!!.findAllByStatus(status.code)
-        return orderEntityList.map { orderEntity: OrderEntity? -> orderEntityMapper!!.toOrderDomain(orderEntity) };
+        return orderEntityList.map { orderEntity: OrderEntity? -> orderEntityMapper!!.toOrderDomain(orderEntity!!) };
     }
 
     override fun delete(id: UUID) {

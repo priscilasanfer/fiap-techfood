@@ -6,6 +6,7 @@ import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
+import java.math.BigDecimal
 
 @Entity
 class ProductEntity {
@@ -15,7 +16,7 @@ class ProductEntity {
     var id: Long? = null
     var name: String? = null
     var description: String? = null
-    var price: String? = null
+    var price: BigDecimal? = null
     var category: CategoryEnum? = null
     var imageURL: String? = null
 
@@ -27,7 +28,7 @@ class ProductEntity {
         this.id = id;
     }
 
-    constructor(name: String, description: String, price: String, category: CategoryEnum, imageURL: String) : this() {
+    constructor(name: String, description: String, price: BigDecimal, category: CategoryEnum, imageURL: String) : this() {
         this.name = name;
         this.description = description;
         this.price = price;
