@@ -16,9 +16,10 @@ public class OrderItemEntity {
     @EmbeddedId
     private OrderItemPk id = new OrderItemPk();
     private Integer quantity;
+    private String description;
 
     //TODO CHECAR SE VAI PRECISAR DESSES CAMPOS
-    private BigDecimal discount;
-    private BigDecimal price;
+    //private BigDecimal discount;
+    //private BigDecimal price;
 
 }

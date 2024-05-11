@@ -1,12 +1,12 @@
-package br.com.fiap.techfood.application.core.domains;
+package br.com.fiap.techfood.adapters.dtos;
 
 import java.util.List;
 import java.util.UUID;
 
-public class CartDomain {
+public class CartDTO {
 
     private UUID id;
-    private List<OrderItemDomain> cartProducts;
+    private List<OrderItemDto> cartProducts;
 
     public UUID getId() {
         return id;
@@ -16,12 +16,11 @@ public class CartDomain {
         this.id = id;
     }
 
-    public List<OrderItemDomain> getCartProducts() {
+    public List<OrderItemDto> getCartProducts() {
         return cartProducts;
     }
 
-    public void setCartProducts(List<OrderItemDomain> cartProducts) {
+    public void setCartProducts(List<OrderItemDto> cartProducts) {
         this.cartProducts = cartProducts;
     }
-
 }

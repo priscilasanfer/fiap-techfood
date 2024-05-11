@@ -23,28 +23,36 @@ public class OrderAdapter implements OrderOutboundPort {
 
     @Override
     public OrderDomain save(OrderDomain orderDomain) {
-        var orderEntity = orderEntityMapper.toEntity(orderDomain);
+        var orderEntity = orderEntityMapper.toOrderEntity(orderDomain);
         orderEntity = orderRepository.save(orderEntity);
-        return orderEntityMapper.toDomain(orderEntity);
+        return orderEntityMapper.toOrderDomain(orderEntity);
     }
 
     @Override
     public Optional<OrderDomain> findById(UUID id) {
-        return Optional.empty();
+        var optional = orderRepository.findById(id);
+        return optional.map(orderEntity -> orderEntityMapper.toOrderDomain(orderEntity));
     }
 
     @Override
     public List<OrderDomain> findAllByOrderStatus(OrderStatusEnum status) {
-        return List.of();
+        var orderEntityList = orderRepository.findAllByStatus(status.getCode());
+        return orderEntityList.stream().map(orderEntity -> orderEntityMapper.toOrderDomain(orderEntity)).toList();
     }
 
     @Override
     public void delete(UUID id) {
-
+        orderRepository.deleteById(id);
     }
 
     @Override
-    public void approvePayment(UUID id) {
-
+    public void updateStatus(UUID id, OrderStatusEnum status) {
+        var optOrderEntity = orderRepository.findById(id);
+        if(optOrderEntity.isPresent()) {
+            var orderEntity = optOrderEntity.get();
+            orderEntity.setStatus(status);
+            orderRepository.save(orderEntity);
+        }
     }
+
 }

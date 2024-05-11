@@ -8,17 +8,32 @@ import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 
 @Entity
-class ProductEntity(
+class ProductEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private val id: Long = 0,
-    private val name: String,
-    private val description: String,
-    private val price: String,
-    private val category: CategoryEnum,
-    private val imageURL: String,
+    var id: Long? = null
+    var name: String? = null
+    var description: String? = null
+    var price: String? = null
+    var category: CategoryEnum? = null
+    var imageURL: String? = null
 
-    ) {
-    constructor(name: String, description: String, price: String, category: CategoryEnum, imageURL: String ) : this(0, name, description, price, category, imageURL) {}
-    fun toProduct() = ProductDTO(this.name, this.description, this.price, this.category, this.imageURL)
+    constructor() {
+
+    }
+
+    constructor(id: Long) : this() {
+        this.id = id;
+    }
+
+    constructor(name: String, description: String, price: String, category: CategoryEnum, imageURL: String) : this() {
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.category = category;
+        this.imageURL = imageURL;
+    }
+
+    //fun toProduct() = ProductDTO(this.name, this.description, this.price, this.category, this.imageURL)
 }
