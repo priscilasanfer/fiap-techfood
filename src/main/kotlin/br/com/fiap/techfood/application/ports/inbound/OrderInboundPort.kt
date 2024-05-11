@@ -11,12 +11,13 @@ interface OrderInboundPort {
 
     fun findById(id: UUID): Optional<OrderDomain>
 
-    fun findAllApprovedOrders(): List<OrderDomain?>
+    fun findAllApprovedOrders(): List<OrderDomain>
 
-    fun findAllPrepared(): List<OrderDomain?>
+    fun findAllPrepared(): List<OrderDomain>
 
     fun delete(id: UUID)
 
+    //fake checkout
     fun approvePayment(id: UUID);
 
     fun prepareOrder(id: UUID);

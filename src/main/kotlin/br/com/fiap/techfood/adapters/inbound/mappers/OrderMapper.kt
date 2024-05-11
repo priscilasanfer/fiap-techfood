@@ -6,11 +6,12 @@ import org.springframework.stereotype.Component
 
 @Component
 class OrderMapper {
-    //TODO
-    fun toOrder(orderDto: OrderDto?): OrderDomain {
-        val order = OrderDomain()
 
-        return order
+
+    fun toOrderDto(orderDomain: OrderDomain): OrderDto {
+        val orderDto = OrderDto()
+
+        return orderDto;
     }
 
 
