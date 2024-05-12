@@ -5,6 +5,8 @@ import br.com.fiap.techfood.application.core.domains.ClientDomain
 import br.com.fiap.techfood.application.core.domains.OrderDomain
 import br.com.fiap.techfood.application.core.domains.OrderItemDomain
 import br.com.fiap.techfood.application.core.domains.enums.OrderStatusEnum
+import br.com.fiap.techfood.application.core.domains.exceptions.DataIntegrityException
+import br.com.fiap.techfood.application.core.domains.exceptions.ObjectNotFoundException
 import br.com.fiap.techfood.application.ports.inbound.OrderInboundPort
 import br.com.fiap.techfood.application.ports.outbound.CpfValidationOutputPort
 import br.com.fiap.techfood.application.ports.outbound.OrderOutboundPort
@@ -25,14 +27,14 @@ class OrderUserCase (
         orderDomain.name = "TesteNome";
 
         if (cartDomain.cartProducts == null || cartDomain.cartProducts.isEmpty()) {
-            throw RuntimeException("Nenhum produto foi selecionado.")
+            throw DataIntegrityException("Nenhum produto foi selecionado.")
         }
 
         //esse problema não aconteceria com um frontend, mas tem que validar novamente
         if (clientDomain?.cpf != null && clientDomain.cpf!!.isNotBlank()) {
             val isValidCpf = cpfValidationOutputPort!!.isValid(clientDomain.cpf)
             if (!isValidCpf) {
-                throw RuntimeException("CPF não valido")
+                throw DataIntegrityException("CPF não valido")
             }
 
             //checar se cliente existe?
@@ -48,9 +50,9 @@ class OrderUserCase (
         println(productList)
         if (productList.size != productIdList.size) {
             //não foram encontrados todos os produtos
-            //TODO POSSIVEL fazer logica para pegar id
+            //TODO POSSIVEL fazer logica para pegar id para apresentar
             //Id e nome do produto no OrderItemModel??
-            throw RuntimeException("Não foram encontrados todos os produtos solicitados.")
+            throw ObjectNotFoundException("Não foram encontrados todos os produtos solicitados.")
         }
 
         orderDomain.items = cartDomain.cartProducts
@@ -79,12 +81,12 @@ class OrderUserCase (
     override fun delete(id: UUID) {
         val optOrderDomain = orderOutboundPort!!.findById(id);
         if (optOrderDomain.isEmpty) {
-            throw RuntimeException("Pedido não encontrado")
+            throw ObjectNotFoundException("Pedido não encontrado")
         }
 
         val orderDomain = optOrderDomain.get();
         if (orderDomain.status != OrderStatusEnum.AWAITING_PAYMENT) {
-            throw RuntimeException("Só é possível deletar um pedido com status de aguardando pagamento.")
+            throw DataIntegrityException("Só é possível deletar um pedido com status de aguardando pagamento.")
         }
 
         orderOutboundPort.delete(orderDomain.id!!);
@@ -94,13 +96,13 @@ class OrderUserCase (
     override fun approvePayment(id: UUID) {
         val optOrderDomain = orderOutboundPort!!.findById(id);
         if (optOrderDomain.isEmpty) {
-            throw RuntimeException("Pedido não encontrado")
+            throw ObjectNotFoundException("Pedido não encontrado")
         }
 
         //TODO check status
         val orderDomain = optOrderDomain.get();
         if (orderDomain.status != OrderStatusEnum.AWAITING_PAYMENT) {
-            throw RuntimeException("Só é possível aprovar pagamento de um pedido com status Aguardando Pagamento.")
+            throw DataIntegrityException("Só é possível aprovar pagamento de um pedido com status Aguardando Pagamento.")
         }
 
         //aprove
@@ -110,13 +112,13 @@ class OrderUserCase (
     override fun prepareOrder(id: UUID) {
         val optOrderDomain = orderOutboundPort!!.findById(id);
         if (optOrderDomain.isEmpty) {
-            throw RuntimeException("Pedido não encontrado")
+            throw ObjectNotFoundException("Pedido não encontrado")
         }
 
         //TODO check status
         val orderDomain = optOrderDomain.get();
         if (orderDomain.status != OrderStatusEnum.PAYMENT_APPROVED) {
-            throw RuntimeException("Só é possível preparar pedidos com status Pagamento Aprovado.")
+            throw DataIntegrityException("Só é possível preparar pedidos com status Pagamento Aprovado.")
         }
 
         //aprove
@@ -126,12 +128,12 @@ class OrderUserCase (
     override fun finishOrder(id: UUID) {
         val optOrderDomain = orderOutboundPort!!.findById(id);
         if (optOrderDomain.isEmpty) {
-            throw RuntimeException("Pedido não encontrado")
+            throw ObjectNotFoundException("Pedido não encontrado")
         }
 
         val orderDomain = optOrderDomain.get();
         if (orderDomain.status != OrderStatusEnum.PREPARED) {
-            throw RuntimeException("Só é possível finalizar pedidos com status Preparado.")
+            throw DataIntegrityException("Só é possível finalizar pedidos com status Preparado.")
         }
 
         orderOutboundPort.updateStatus(id, OrderStatusEnum.FINISHED);
