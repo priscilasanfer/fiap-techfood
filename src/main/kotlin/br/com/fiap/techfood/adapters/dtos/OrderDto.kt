@@ -7,7 +7,7 @@ import java.util.UUID
 
 class OrderDto(
 
-    val id: UUID? = null,
+    var id: UUID? = null,
     var name: String? = null,
     var items: List<OrderItemDto>? = listOf(),
     var status: OrderStatusEnum? = null,

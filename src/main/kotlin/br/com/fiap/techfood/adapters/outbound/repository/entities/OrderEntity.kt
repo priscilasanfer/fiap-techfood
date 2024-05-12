@@ -31,7 +31,7 @@ class OrderEntity {
     var isAnonymous: Boolean? = null
 
     @OneToMany(mappedBy = "id.order")
-    var items: List<OrderItemEntity>? = null
+    var items: List<OrderItemEntity> = listOf();
 
     @ManyToOne
     @JoinColumn(name = "client_id")

@@ -41,6 +41,15 @@ class OrderUserCase (
             orderDomain.client = clientDomain
         }
 
+
+        //CHECA ITEM PEDIDO
+        cartDomain.cartProducts.forEach {
+            if(it != null && it.quantity!! <= 0) {
+                throw DataIntegrityException("Quantidade do Item Pedido não pode ser menor ou igual 0");
+            }
+        }
+
+
         //checkIfAllProductsExists
         val productIdList = cartDomain.cartProducts.stream().map(OrderItemDomain::productId).collect(Collectors.toSet())
         println("ProductId LIst");
