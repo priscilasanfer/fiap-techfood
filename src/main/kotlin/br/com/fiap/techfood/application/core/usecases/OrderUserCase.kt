@@ -21,12 +21,12 @@ class OrderUserCase (
 ) : OrderInboundPort {
 
 
-    override fun save(cartDomain: CartDomain, clientDomain: ClientDomain?): OrderDomain {
+    override fun save(cartDomain: CartDomain, clientDomain: ClientDomain): OrderDomain {
         var orderDomain = OrderDomain()
         orderDomain.status = OrderStatusEnum.AWAITING_PAYMENT
         orderDomain.name = "TesteNome";
 
-        if (cartDomain.cartProducts == null || cartDomain.cartProducts.isEmpty()) {
+        if (cartDomain.cartProducts == null || cartDomain.cartProducts!!.isEmpty()) {
             throw DataIntegrityException("Nenhum produto foi selecionado.")
         }
 
@@ -43,7 +43,7 @@ class OrderUserCase (
 
 
         //CHECA ITEM PEDIDO
-        cartDomain.cartProducts.forEach {
+        cartDomain.cartProducts!!.forEach {
             if(it != null && it.quantity!! <= 0) {
                 throw DataIntegrityException("Quantidade do Item Pedido não pode ser menor ou igual 0");
             }
@@ -51,7 +51,7 @@ class OrderUserCase (
 
 
         //checkIfAllProductsExists
-        val productIdList = cartDomain.cartProducts.stream().map(OrderItemDomain::productId).collect(Collectors.toSet())
+        val productIdList = cartDomain.cartProducts!!.stream().map(OrderItemDomain::productId).collect(Collectors.toSet())
         println("ProductId LIst");
         println(productIdList)
         val productList = productOutboundPort!!.findAllByIds(productIdList)
