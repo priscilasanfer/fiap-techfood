@@ -1,4 +1,4 @@
-package br.com.fiap.techfood.techfood.domain.dto
+package br.com.fiap.techfood.adapters.dto
 
 data class ClientDTO(
     val cpf: String,

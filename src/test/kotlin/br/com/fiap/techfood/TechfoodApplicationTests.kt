@@ -1,4 +1,4 @@
-package br.com.fiap.techfood.techfood
+package br.com.fiap.techfood
 
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest

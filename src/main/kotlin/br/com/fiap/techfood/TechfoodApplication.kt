@@ -1,4 +1,4 @@
-package br.com.fiap.techfood.techfood
+package br.com.fiap.techfood
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
