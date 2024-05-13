@@ -1,4 +1,4 @@
-package br.com.fiap.techfood.adapters.outbound.repository.entities;
+package br.com.fiap.techfood.adapters.outbound.repository.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

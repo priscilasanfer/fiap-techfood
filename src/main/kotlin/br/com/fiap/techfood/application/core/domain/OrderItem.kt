@@ -1,4 +1,4 @@
-package br.com.fiap.techfood.application.core.domains
+package br.com.fiap.techfood.application.core.domain
 
 class OrderItem {
     private val quantity: Int? = null

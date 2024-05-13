@@ -1,4 +1,4 @@
-package br.com.fiap.techfood.application.core.domains
+package br.com.fiap.techfood.application.core.domain
 
 import java.util.UUID
 
