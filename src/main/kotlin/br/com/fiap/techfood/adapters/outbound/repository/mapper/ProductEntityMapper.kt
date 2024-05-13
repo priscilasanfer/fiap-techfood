@@ -3,6 +3,7 @@ package br.com.fiap.techfood.adapters.outbound.repository.mapper
 import br.com.fiap.techfood.adapters.outbound.repository.entity.ProductEntity
 import br.com.fiap.techfood.application.core.domain.Product
 import org.springframework.stereotype.Component
+import java.util.*
 
 @Component
 class ProductEntityMapper {
@@ -14,6 +15,7 @@ class ProductEntityMapper {
         val price = product.price
 
         val entity = ProductEntity(category = category, description = description, imageURL = imageURL, name = name, price = price)
+
         return entity
     }
 
