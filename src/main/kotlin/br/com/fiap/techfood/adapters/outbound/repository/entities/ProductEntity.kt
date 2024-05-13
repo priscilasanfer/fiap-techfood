@@ -1,7 +1,7 @@
-package br.com.fiap.techfood.adapters.outbound.repository.entity
+package br.com.fiap.techfood.adapters.outbound.repository.entities
 
-import br.com.fiap.techfood.adapters.dto.ProductDTO
-import br.com.fiap.techfood.application.core.domain.enums.CategoryEnum
+import br.com.fiap.techfood.adapters.dtos.ProductDTO
+import br.com.fiap.techfood.application.core.domains.enums.CategoryEnum
 import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
