@@ -1,8 +1,8 @@
-package br.com.fiap.techfood.adapters.inbound.mapper
+package br.com.fiap.techfood.adapters.inbound.mappers
 
-import br.com.fiap.techfood.adapters.dto.ProductDTO
-import br.com.fiap.techfood.adapters.outbound.repository.entity.ProductEntity
-import br.com.fiap.techfood.application.core.domain.Product
+import br.com.fiap.techfood.adapters.dtos.ProductDTO
+import br.com.fiap.techfood.adapters.outbound.repository.entities.ProductEntity
+import br.com.fiap.techfood.application.core.domains.Product
 import org.springframework.stereotype.Component
 
 @Component
@@ -21,16 +21,16 @@ class ProductMapper {
         )
     }
 
-    fun productEntityToProduct(productEntity: ProductEntity?): Product {
-        if (productEntity == null) {
+    fun productToProductDto(product: Product?): ProductDTO {
+        if (product == null) {
             throw IllegalArgumentException("ProductEntity cannot be null")
         }
-        return Product(
-            name = productEntity.name,
-            description = productEntity.description,
-            price = productEntity.price,
-            category = productEntity.category,
-            imageURL = productEntity.imageURL,
+        return ProductDTO(
+            name = product.name,
+            description = product.description,
+            price = product.price,
+            category = product.category,
+            imageURL = product.imageURL,
         )
     }
 }

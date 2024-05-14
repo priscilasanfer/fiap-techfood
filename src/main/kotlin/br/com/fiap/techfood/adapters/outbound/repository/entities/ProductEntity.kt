@@ -2,23 +2,31 @@ package br.com.fiap.techfood.adapters.outbound.repository.entities
 
 import br.com.fiap.techfood.adapters.dtos.ProductDTO
 import br.com.fiap.techfood.application.core.domains.enums.CategoryEnum
-import jakarta.persistence.Entity
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.GenerationType
-import jakarta.persistence.Id
+import jakarta.persistence.*
+import java.math.BigDecimal
+import java.util.*
 
 @Entity
+@Table(name = "products")
 class ProductEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private val id: Long = 0,
-    private val name: String,
-    private val description: String,
-    private val price: String,
-    private val category: CategoryEnum,
-    private val imageURL: String,
+    var id: UUID,
+
+    @Column(nullable = false)
+    var name: String,
+
+    @Column(nullable = false)
+    var description: String,
+
+    @Column(nullable = false)
+    var price: BigDecimal,
+
+    @Column(nullable = false)
+    var category: CategoryEnum,
+
+    @Column(nullable = false)
+    var imageURL: String,
 
     ) {
-    constructor(name: String, description: String, price: String, category: CategoryEnum, imageURL: String ) : this(0, name, description, price, category, imageURL) {}
-    fun toProduct() = ProductDTO(this.name, this.description, this.price, this.category, this.imageURL)
 }
