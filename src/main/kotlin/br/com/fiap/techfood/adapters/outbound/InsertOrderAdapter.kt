@@ -2,7 +2,7 @@ package br.com.fiap.techfood.adapters.outbound
 
 import br.com.fiap.techfood.adapters.outbound.repository.OrderRepository
 import br.com.fiap.techfood.adapters.outbound.repository.mappers.OrderEntityMapper
-import br.com.fiap.techfood.application.core.domains.ClientDomain
+import br.com.fiap.techfood.application.core.domains.Client
 import br.com.fiap.techfood.application.core.domains.Order
 import br.com.fiap.techfood.application.ports.outbound.InsertOrderOutputPort
 import org.springframework.beans.factory.annotation.Autowired
@@ -16,7 +16,7 @@ class InsertOrderAdapter : InsertOrderOutputPort {
     @Autowired
     private val orderEntityMapper: OrderEntityMapper? = null
 
-    override fun insert(order: Order?, client: ClientDomain?): Order? {
+    override fun insert(order: Order?, client: Client?): Order? {
         var orderEntity = orderEntityMapper!!.toEntity(order)
         orderEntity = orderRepository!!.save(orderEntity)
         //TODO ENTITY -> PEDIDO
