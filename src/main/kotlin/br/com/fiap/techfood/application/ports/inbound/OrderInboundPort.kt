@@ -7,7 +7,7 @@ import java.util.*
 
 interface OrderInboundPort {
 
-    fun save(cartDomain: CartDomain, clientDomain: ClientDomain): OrderDomain
+    fun save(cartDomain: CartDomain, clientDomain: ClientDomain?): OrderDomain
 
     fun findById(id: UUID): Optional<OrderDomain>
 

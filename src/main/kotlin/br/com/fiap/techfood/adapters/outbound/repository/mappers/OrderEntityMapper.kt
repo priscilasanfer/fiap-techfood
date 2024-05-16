@@ -26,7 +26,7 @@ class OrderEntityMapper {
         val orderDomain = OrderDomain();
         orderDomain.id = orderEntity.id
         //
-        orderDomain.items = toOrderItemDomainList(orderEntity.items!!)
+        orderDomain.items = toOrderItemDomainList(orderEntity.items)
         orderDomain.status = orderEntity.getStatus()!!;
         orderDomain.isAnonymous = orderEntity.isAnonymous;
         orderDomain.name = orderEntity.name

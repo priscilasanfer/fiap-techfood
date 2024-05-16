@@ -21,7 +21,7 @@ class OrderUserCase (
 ) : OrderInboundPort {
 
 
-    override fun save(cartDomain: CartDomain, clientDomain: ClientDomain): OrderDomain {
+    override fun save(cartDomain: CartDomain, clientDomain: ClientDomain?): OrderDomain {
         var orderDomain = OrderDomain()
         orderDomain.status = OrderStatusEnum.AWAITING_PAYMENT
         orderDomain.name = "TesteNome";
@@ -51,11 +51,8 @@ class OrderUserCase (
 
 
         //checkIfAllProductsExists
-        val productIdList = cartDomain.cartProducts!!.stream().map(OrderItemDomain::productId).collect(Collectors.toSet())
-        println("ProductId LIst");
-        println(productIdList)
+        val productIdList: MutableSet<UUID> = cartDomain.cartProducts!!.stream().map(OrderItemDomain::productId).collect(Collectors.toSet())
         val productList = productOutboundPort!!.findAllByIds(productIdList)
-        println("Produtos LIst");
         println(productList)
         if (productList.size != productIdList.size) {
             //não foram encontrados todos os produtos

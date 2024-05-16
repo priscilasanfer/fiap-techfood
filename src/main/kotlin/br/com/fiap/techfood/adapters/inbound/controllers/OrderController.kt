@@ -34,14 +34,16 @@ class OrderController(
     //TODO DTO DE RETORNO
     @PostMapping
     fun makeOrder(@RequestBody orderCreateDto: OrderCreateDto): ResponseEntity<OrderDomain> {
-        var cartDomain: CartDomain = cartMapper.toCartDomain(orderCreateDto.cart!!);
+        val cartDomain: CartDomain = cartMapper.toCartDomain(orderCreateDto.cart!!);
         var clientDomain: ClientDomain? = null
 
         if (orderCreateDto.client != null) {
             clientDomain = clientMapper.toClientDomain(orderCreateDto.client!!);
         }
 
-        val response = orderInboundPort.save(cartDomain, clientDomain!!)
+        println(orderInboundPort)
+        println("testando")
+        val response = orderInboundPort.save(cartDomain, clientDomain)
         return ResponseEntity.ok().body(response);
     }
 
