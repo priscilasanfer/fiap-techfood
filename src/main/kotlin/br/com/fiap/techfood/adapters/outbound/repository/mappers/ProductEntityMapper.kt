@@ -6,8 +6,28 @@ import org.springframework.stereotype.Component
 
 @Component
 class ProductEntityMapper {
+    fun toProductEntity(productDomain: Product): ProductEntity {
+        return ProductEntity(
+            id= productDomain.id,
+            name= productDomain.name,
+            description = productDomain.description,
+            price= productDomain.price,
+            category= productDomain.category,
+            imageURL = productDomain.imageURL,
+        )
+    }
 
-    fun toProductEntity(product: Product): ProductEntity {
+    fun toProduct(productEntity: ProductEntity): Product {
+        return Product(
+            name = productEntity.name,
+            description = productEntity.description,
+            price = productEntity.price,
+            category = productEntity.category,
+            imageURL = productEntity.imageURL
+        )
+    }
+
+        fun toProductEntity(product: Product): ProductEntity {
         val productEntity = ProductEntity();
         productEntity.category = product.category;
 
@@ -45,5 +65,4 @@ class ProductEntityMapper {
     }
 
      */
-
 }

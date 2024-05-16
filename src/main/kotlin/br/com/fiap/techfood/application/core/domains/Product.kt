@@ -2,14 +2,15 @@ package br.com.fiap.techfood.application.core.domains
 
 import br.com.fiap.techfood.application.core.domains.enums.CategoryEnum
 import java.math.BigDecimal
+import java.util.*
 
-class Product {
+data class Product (
 
-    var name : String? =null
-    var description : String? =null
-    var price : BigDecimal? =null
-    var category : CategoryEnum? =null
-    var imageURL : String? =null
+    val id: UUID = UUID(0,0),
+    var name : String,
+    var description : String,
+    var price : BigDecimal,
+    var category : CategoryEnum,
+    var imageURL : String,
 
-
-}
+    )

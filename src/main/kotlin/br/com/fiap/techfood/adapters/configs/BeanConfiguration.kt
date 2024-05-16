@@ -9,6 +9,10 @@ import br.com.fiap.techfood.application.core.usecases.OrderUserCase
 import br.com.fiap.techfood.application.ports.outbound.ClientOutboundPort
 import br.com.fiap.techfood.application.ports.outbound.CpfValidationOutputPort
 import br.com.fiap.techfood.application.ports.outbound.OrderOutboundPort
+import br.com.fiap.techfood.application.core.usecases.ClientUseCase
+import br.com.fiap.techfood.application.core.usecases.ProductUseCase
+import br.com.fiap.techfood.application.ports.outbound.ClientOutboundPort
+import br.com.fiap.techfood.application.ports.outbound.InsertOrderOutputPort
 import br.com.fiap.techfood.application.ports.outbound.ProductOutboundPort
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.ComponentScan
@@ -33,5 +37,8 @@ class BeanConfiguration {
         return OrderUserCase(validateCpfAdapter, orderAdapter, productAdapter);
     }
 
+    fun productUseCase(persistence: ProductOutboundPort): ProductUseCase {
+        return ProductUseCase(persistence)
+    }
 
 }
