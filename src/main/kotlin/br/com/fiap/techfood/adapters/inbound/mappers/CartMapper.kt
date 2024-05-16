@@ -16,17 +16,17 @@ class CartMapper {
         return cartDomain
     }
 
-    fun toOrderItemDomainList(items: List<OrderItemDto?>?): List<OrderItemDomain>? {
+    fun toOrderItemDomainList(items: List<OrderItemDto>?): List<OrderItemDomain>? {
         if (items == null) {
             return null
         }
-        return items.stream().map { orderItemDto: OrderItemDto? -> this.toOrderItemDomain(orderItemDto) }
+        return items.stream().map { orderItemDto: OrderItemDto -> this.toOrderItemDomain(orderItemDto) }
             .collect(Collectors.toList())
     }
 
-    fun toOrderItemDomain(orderItemDto: OrderItemDto?): OrderItemDomain {
+    fun toOrderItemDomain(orderItemDto: OrderItemDto): OrderItemDomain {
         val orderItemDomain = OrderItemDomain()
-        BeanUtils.copyProperties(orderItemDto!!, orderItemDomain)
+        BeanUtils.copyProperties(orderItemDto, orderItemDomain)
         return orderItemDomain
     }
 }

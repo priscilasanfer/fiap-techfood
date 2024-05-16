@@ -41,8 +41,6 @@ class OrderController(
             clientDomain = clientMapper.toClientDomain(orderCreateDto.client!!);
         }
 
-        println(orderInboundPort)
-        println("testando")
         val response = orderInboundPort.save(cartDomain, clientDomain)
         return ResponseEntity.ok().body(response);
     }

@@ -44,7 +44,7 @@ class OrderUserCase (
 
         //CHECA ITEM PEDIDO
         cartDomain.cartProducts!!.forEach {
-            if(it != null && it.quantity!! <= 0) {
+            if(it.quantity == null || it.quantity!! <= 0) {
                 throw DataIntegrityException("Quantidade do Item Pedido não pode ser menor ou igual 0");
             }
         }
