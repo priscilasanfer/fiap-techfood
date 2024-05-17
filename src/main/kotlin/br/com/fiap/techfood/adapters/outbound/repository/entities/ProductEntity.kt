@@ -8,25 +8,40 @@ import java.util.*
 
 @Entity
 @Table(name = "products")
-class ProductEntity(
+class ProductEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    var id: UUID,
+    var id: UUID? = null
 
     @Column(nullable = false)
-    var name: String,
+    var name: String? = null
 
     @Column(nullable = false)
-    var description: String,
+    var description: String? = null
 
     @Column(nullable = false)
-    var price: BigDecimal,
+    var price: BigDecimal? = null
 
     @Column(nullable = false)
-    var category: CategoryEnum,
+    var category: CategoryEnum? = null
 
     @Column(nullable = false)
-    var imageURL: String,
+    var imageURL: String? = null
 
-    ) {
+    constructor() {
+    }
+
+    constructor(id: UUID) : this() {
+        this.id = id;
+    }
+
+    constructor(id: UUID, name: String, description: String, price: BigDecimal, category: CategoryEnum, imageURL: String) : this() {
+        this.id = id
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.category = category;
+        this.imageURL = imageURL;
+    }
 }

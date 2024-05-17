@@ -4,9 +4,9 @@ import br.com.fiap.techfood.application.core.domains.enums.CategoryEnum
 import java.math.BigDecimal
 import java.util.*
 
-data class Product (
+data class ProductDomain (
 
-    val id: UUID = UUID(0,0),
+    val id: UUID? = null,
     var name : String,
     var description : String,
     var price : BigDecimal,
