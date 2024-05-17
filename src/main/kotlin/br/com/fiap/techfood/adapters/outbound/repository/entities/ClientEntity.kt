@@ -4,8 +4,7 @@ import jakarta.persistence.*
 import org.hibernate.validator.constraints.br.CPF
 import java.util.UUID
 
-@Entity
-@Table(name = "clients")
+@Table(name = "TB_CLIENTS")
 class ClientEntity {
 
     @Id
