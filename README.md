@@ -59,3 +59,7 @@ Para executar o sistema, siga as instruções abaixo:
 4. Build o projeto rodando o comando `$ mvn install -DskipTests`
 5. Execute o comando `$ docker compose up --build -d` para subir o ambiente completo em modo detached.
 6. Acesse a documentação da API através do Swagger para começar a interagir com o sistema.
+
+## Acessando Swagger
+
+Para acessar o Swagger utilize a url `http://localhost:8080/swagger-ui/index.html`.
