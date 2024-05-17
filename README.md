@@ -62,4 +62,4 @@ Para executar o sistema, siga as instruções abaixo:
 
 ## Acessando Swagger
 
-Para acessar o Swagger utilize a url `http://localhost:8080/swagger-ui/index.html`.
+Para acessar o Swagger utilize a url [http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html).
