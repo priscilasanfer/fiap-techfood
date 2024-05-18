@@ -1,18 +1,17 @@
 package br.com.fiap.techfood.adapters.inbound.mappers
 
 import br.com.fiap.techfood.adapters.dtos.ProductDTO
-import br.com.fiap.techfood.adapters.outbound.repository.entities.ProductEntity
-import br.com.fiap.techfood.application.core.domains.Product
+import br.com.fiap.techfood.application.core.domains.ProductDomain
 import org.springframework.stereotype.Component
 
 @Component
 class ProductMapper {
-    fun toProduct(productDto: ProductDTO?): Product {
+    fun toProduct(productDto: ProductDTO?): ProductDomain {
         if (productDto == null) {
             throw IllegalArgumentException("ProductDTO cannot be null")
         }
 
-        return Product(
+        return ProductDomain(
             name = productDto.name,
             description = productDto.description,
             price = productDto.price,
@@ -21,7 +20,7 @@ class ProductMapper {
         )
     }
 
-    fun productToProductDto(product: Product?): ProductDTO {
+    fun productToProductDto(product: ProductDomain?): ProductDTO {
         if (product == null) {
             throw IllegalArgumentException("ProductEntity cannot be null")
         }

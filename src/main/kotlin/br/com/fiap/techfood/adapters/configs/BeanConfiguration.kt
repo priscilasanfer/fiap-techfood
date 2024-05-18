@@ -1,11 +1,13 @@
 package br.com.fiap.techfood.adapters.configs
 
 import br.com.fiap.techfood.TechfoodApplication
+import br.com.fiap.techfood.adapters.outbound.OrderAdapter
+import br.com.fiap.techfood.adapters.outbound.ProductAdapter
+import br.com.fiap.techfood.adapters.outbound.ValidateCpfAdapter
 import br.com.fiap.techfood.application.core.usecases.ClientUseCase
-import br.com.fiap.techfood.application.core.usecases.InsertOrderUserCase
-import br.com.fiap.techfood.application.core.usecases.ProductUseCase
+import br.com.fiap.techfood.application.core.usecases.OrderUserCase
 import br.com.fiap.techfood.application.ports.outbound.ClientOutboundPort
-import br.com.fiap.techfood.application.ports.outbound.InsertOrderOutputPort
+import br.com.fiap.techfood.application.core.usecases.ProductUseCase
 import br.com.fiap.techfood.application.ports.outbound.ProductOutboundPort
 import io.swagger.v3.oas.models.ExternalDocumentation
 import io.swagger.v3.oas.models.OpenAPI
@@ -24,13 +26,17 @@ class BeanConfiguration {
     }
 
     @Bean
-    fun productUseCase(persistence: ProductOutboundPort): ProductUseCase {
-        return ProductUseCase(persistence)
+    fun orderUserCase(
+        validateCpfAdapter: ValidateCpfAdapter,
+        orderAdapter: OrderAdapter,
+        productAdapter: ProductAdapter
+    ): OrderUserCase {
+        return OrderUserCase(validateCpfAdapter, orderAdapter, productAdapter);
     }
 
     @Bean
-    fun insertOrderUserCase(insertOrderOutputPort: InsertOrderOutputPort?): InsertOrderUserCase {
-        return InsertOrderUserCase(insertOrderOutputPort!!)
+    fun productUseCase(persistence: ProductOutboundPort): ProductUseCase {
+        return ProductUseCase(persistence)
     }
 
 }

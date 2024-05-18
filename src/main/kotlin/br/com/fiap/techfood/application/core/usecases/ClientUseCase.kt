@@ -1,25 +1,25 @@
 package br.com.fiap.techfood.application.core.usecases
 
-import br.com.fiap.techfood.application.core.domains.Client
+import br.com.fiap.techfood.application.core.domains.ClientDomain
 import br.com.fiap.techfood.application.core.domains.PageInfo
 import br.com.fiap.techfood.application.ports.inbound.ClientInboundPort
 import br.com.fiap.techfood.application.ports.outbound.ClientOutboundPort
 import java.util.*
 
 class ClientUseCase(private var clientOutboundPort: ClientOutboundPort) : ClientInboundPort {
-    override fun save(clientDomain: Client): Client {
+    override fun save(clientDomain: ClientDomain): ClientDomain {
         return clientOutboundPort.save(clientDomain)
     }
 
-    override fun findById(id: UUID): Optional<Client> {
+    override fun findById(id: UUID): Optional<ClientDomain> {
         return  clientOutboundPort.findById(id)
     }
 
-    override fun findAll(pageInfo: PageInfo): List<Client> {
+    override fun findAll(pageInfo: PageInfo): List<ClientDomain> {
         return clientOutboundPort.findAll(pageInfo)
     }
 
-    override fun delete(clientDomain: Client) {
+    override fun delete(clientDomain: ClientDomain) {
         return clientOutboundPort.delete(clientDomain)
     }
 }
