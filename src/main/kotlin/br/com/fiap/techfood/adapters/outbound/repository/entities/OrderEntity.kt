@@ -34,7 +34,7 @@ class OrderEntity {
     var items: List<OrderItemEntity> = listOf();
 
     @ManyToOne
-    @JoinColumn(name = "client_id")
+    @JoinColumn(name = "client_id", foreignKey = ForeignKey(name = "fk_order_client"))
     var client: ClientEntity? = null
 
     @Column(nullable = false)

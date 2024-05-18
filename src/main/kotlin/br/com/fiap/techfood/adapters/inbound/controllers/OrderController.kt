@@ -12,6 +12,7 @@ import br.com.fiap.techfood.application.ports.inbound.InsertOrderInputPort
 import br.com.fiap.techfood.application.ports.inbound.OrderInboundPort
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
+import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -30,11 +31,9 @@ class OrderController(
     @Autowired private val cartMapper: CartMapper
 ) {
 
-    //TODO @Valid
-    //TODO DTO DE RETORNO
     @PostMapping
-    fun makeOrder(@RequestBody orderCreateDto: OrderCreateDto): ResponseEntity<OrderDomain> {
-        val cartDomain: CartDomain = cartMapper.toCartDomain(orderCreateDto.cart!!);
+    fun makeOrder(@RequestBody @Validated orderCreateDto: OrderCreateDto): ResponseEntity<OrderDomain> {
+        val cartDomain: CartDomain = cartMapper.toCartDomain(orderCreateDto);
         var clientDomain: ClientDomain? = null
 
         if (orderCreateDto.client != null) {
@@ -59,19 +58,15 @@ class OrderController(
         return ResponseEntity.ok().body(orderDtoList);
     }
 
-
-    //fun prepareOrder(id: UUID);
-    //fun finishOrder(id: UUID);
-
     @DeleteMapping("/{orderId}")
     fun deleteOrder(@PathVariable orderId: UUID) {
         orderInboundPort.delete(orderId);
     }
 
-    //FAKE CHECKOUT
     @PostMapping("/{orderId}/pay")
-    fun approvePayment(@PathVariable orderId: UUID) {
-        orderInboundPort.approvePayment(orderId);
+    fun approvePayment(@PathVariable orderId: UUID): ResponseEntity<String> {
+        val message = orderInboundPort.approvePayment(orderId);
+        return ResponseEntity.ok().body(message)
     }
 
     @PostMapping("/{orderId}/prepare")

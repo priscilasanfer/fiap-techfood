@@ -13,46 +13,46 @@ import org.springframework.stereotype.Component
 import java.util.*
 
 @Component
-class OrderAdapter : OrderOutboundPort {
+class OrderAdapter(
+    @Autowired
+    private val orderRepository: OrderRepository,
 
     @Autowired
-    private val orderRepository: OrderRepository? = null
+    private val orderItemRepository: OrderItemRepository,
 
     @Autowired
-    private val orderItemRepository: OrderItemRepository? = null;
-
-    @Autowired
-    private val orderEntityMapper: OrderEntityMapper? = null
+    private val orderEntityMapper: OrderEntityMapper
+) : OrderOutboundPort {
 
 
     @Transactional
     override fun save(orderDomain: OrderDomain): OrderDomain {
-        var orderEntity = orderEntityMapper!!.toOrderEntity(orderDomain)
-        orderEntity = orderRepository!!.save(orderEntity)
+        var orderEntity = orderEntityMapper.toOrderEntity(orderDomain)
+        orderEntity = orderRepository.save(orderEntity)
 
-        val orderItemsEntity = orderEntityMapper.toOrderItemEntityList(orderDomain.items!!, orderEntity);
-        orderEntity.items = orderItemsEntity;
-        orderItemRepository!!.saveAll(orderItemsEntity);
+        val orderItemsEntity = orderEntityMapper.toOrderItemEntityList(orderDomain.items!!, orderEntity)
+        orderEntity.items = orderItemsEntity
+        orderItemRepository.saveAll(orderItemsEntity)
 
         return orderEntityMapper.toOrderDomain(orderEntity)
     }
 
     override fun findById(id: UUID): Optional<OrderDomain> {
-        val optional = orderRepository!!.findById(id)
-        return optional.map { orderEntity: OrderEntity? -> orderEntityMapper!!.toOrderDomain(orderEntity!!) }
+        val optional = orderRepository.findById(id)
+        return optional.map { orderEntity: OrderEntity? -> orderEntityMapper.toOrderDomain(orderEntity!!) }
     }
 
     override fun findAllByOrderStatus(status: OrderStatusEnum): List<OrderDomain> {
-        val orderEntityList = orderRepository!!.findAllByStatus(status.code)
-        return orderEntityList.map { orderEntity: OrderEntity? -> orderEntityMapper!!.toOrderDomain(orderEntity!!) };
+        val orderEntityList = orderRepository.findAllByStatus(status.code)
+        return orderEntityList.map { orderEntity: OrderEntity? -> orderEntityMapper.toOrderDomain(orderEntity!!) }
     }
 
     override fun delete(id: UUID) {
-        orderRepository!!.deleteById(id)
+        orderRepository.deleteById(id)
     }
 
     override fun updateStatus(id: UUID, status: OrderStatusEnum) {
-        val optOrderEntity = orderRepository!!.findById(id)
+        val optOrderEntity = orderRepository.findById(id)
         if (optOrderEntity.isPresent) {
             val orderEntity = optOrderEntity.get()
             orderEntity.setStatus(status)

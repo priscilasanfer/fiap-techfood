@@ -1,6 +1,7 @@
 package br.com.fiap.techfood.adapters.outbound.repository.entities
 
 import jakarta.persistence.Embeddable
+import jakarta.persistence.ForeignKey
 import jakarta.persistence.JoinColumn
 import jakarta.persistence.ManyToOne
 import java.io.Serializable
@@ -9,11 +10,11 @@ import java.util.*
 @Embeddable
 class OrderItemPk(
     @ManyToOne
-    @JoinColumn(name = "order_id")
+    @JoinColumn(name = "order_id",  foreignKey = ForeignKey(name = "fk_order_item_order"))
     var order: OrderEntity? = null,
 
     @ManyToOne
-    @JoinColumn(name = "product_id")
+    @JoinColumn(name = "product_id",  foreignKey = ForeignKey(name = "fk_order_item_product"))
     var product: ProductEntity? = null
 ) : Serializable {
 
