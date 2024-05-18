@@ -5,4 +5,5 @@ import java.util.*
 class CartDomain {
     var id: UUID? = null
     var cartProducts: List<OrderItemDomain>? = null
+    var orderName: String? = null
 }

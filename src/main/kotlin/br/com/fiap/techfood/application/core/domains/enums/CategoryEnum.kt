@@ -5,4 +5,22 @@ enum class CategoryEnum(val categoryName: String, val id: Int) {
     SIDE_DISH("Acompanhamento", 2),
     DRINK("Bebida", 3),
     DESSERT("Sobremesa", 4),
+    ;
+
+    companion object {
+        fun toEnum(code: Int?): CategoryEnum? {
+            if (code == null) {
+                return null
+            }
+
+            for (x in CategoryEnum.entries) {
+                if (code == x.id) {
+                    return x
+                }
+            }
+            throw IllegalArgumentException("Order Status code invalid.")
+        }
+    }
+
+
 }

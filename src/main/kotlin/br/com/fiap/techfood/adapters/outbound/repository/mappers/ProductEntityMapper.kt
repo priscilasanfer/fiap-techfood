@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component
 class ProductEntityMapper {
     fun toProductEntity(productDomain: ProductDomain): ProductEntity {
         return ProductEntity(
-            id = productDomain.id!!,
+            id = productDomain.id,
             name = productDomain.name,
             description = productDomain.description,
             price = productDomain.price,
@@ -23,7 +23,7 @@ class ProductEntityMapper {
             name = productEntity.name!!,
             description = productEntity.description!!,
             price = productEntity.price!!,
-            category = productEntity.category!!,
+            category = productEntity.getCategory()!!,
             imageURL = productEntity.imageURL!!
         )
     }

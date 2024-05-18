@@ -25,6 +25,7 @@ class ProductMapper {
             throw IllegalArgumentException("ProductEntity cannot be null")
         }
         return ProductDTO(
+            id = product.id,
             name = product.name,
             description = product.description,
             price = product.price,

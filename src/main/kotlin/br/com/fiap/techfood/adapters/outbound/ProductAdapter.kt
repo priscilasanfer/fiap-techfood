@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component
 import java.util.UUID
 
 @Component
-class ProductAdapter (
+class ProductAdapter(
     private val productRepository: ProductRepository,
     private val productEntityMapper: ProductEntityMapper
 ) :
@@ -28,7 +28,7 @@ class ProductAdapter (
         existingProduct!!.name = updatedProduct.name
         existingProduct.description = updatedProduct.description
         existingProduct.price = updatedProduct.price
-        existingProduct.category = updatedProduct.category
+        existingProduct.setCategory(updatedProduct.category)
         existingProduct.imageURL = updatedProduct.imageURL
 
         val updatedEntity = productRepository.save(existingProduct)
@@ -60,8 +60,7 @@ class ProductAdapter (
         productRepository.deleteById(id)
     }
 
-    //TODO
     override fun findAllByIds(ids: MutableSet<UUID>): List<ProductDomain> {
-        return productRepository.findAllById(ids).map {  productEntityMapper.toProductDomain(it!!)};
+        return productRepository.findAllById(ids).map { productEntityMapper.toProductDomain(it!!) };
     }
 }
