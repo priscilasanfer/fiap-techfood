@@ -1,6 +1,5 @@
 package br.com.fiap.techfood.adapters.outbound.repository.entities
 
-import br.com.fiap.techfood.adapters.dtos.ProductDTO
 import br.com.fiap.techfood.application.core.domains.enums.CategoryEnum
 import jakarta.persistence.*
 import java.math.BigDecimal
@@ -24,7 +23,15 @@ class ProductEntity {
     var price: BigDecimal? = null
 
     @Column(nullable = false)
-    var category: CategoryEnum? = null
+    var category: Int? = null
+
+    public fun getCategory(): CategoryEnum? {
+        return CategoryEnum.toEnum(this.category)
+    }
+
+    public fun setCategory(category: CategoryEnum) {
+        this.category = category.id
+    }
 
     @Column(nullable = false)
     var imageURL: String? = null
@@ -36,12 +43,12 @@ class ProductEntity {
         this.id = id;
     }
 
-    constructor(id: UUID, name: String, description: String, price: BigDecimal, category: CategoryEnum, imageURL: String) : this() {
+    constructor(id: UUID?, name: String, description: String, price: BigDecimal, category: CategoryEnum, imageURL: String) : this() {
         this.id = id
         this.name = name;
         this.description = description;
         this.price = price;
-        this.category = category;
+        this.category = category.id;
         this.imageURL = imageURL;
     }
 }

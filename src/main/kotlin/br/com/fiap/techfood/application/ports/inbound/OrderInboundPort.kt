@@ -17,8 +17,7 @@ interface OrderInboundPort {
 
     fun delete(id: UUID)
 
-    //fake checkout
-    fun approvePayment(id: UUID);
+    fun approvePayment(id: UUID): String;
 
     fun prepareOrder(id: UUID);
 

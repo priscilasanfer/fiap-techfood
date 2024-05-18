@@ -10,21 +10,17 @@ import org.springframework.stereotype.Component
 @Component
 class OrderMapper {
 
-
     fun toOrderDto(orderDomain: OrderDomain): OrderDto {
         val orderDto = OrderDto()
-        BeanUtils.copyProperties(orderDomain, orderDto);
-
+        BeanUtils.copyProperties(orderDomain, orderDto)
         orderDto.items = orderDomain.items?.map { toOrderItemDto(it) }
-        //mesmo para client
-
-        return orderDto;
+        return orderDto
     }
 
     fun toOrderItemDto(orderItemDomain: OrderItemDomain): OrderItemDto {
-        val orderItemDto = OrderItemDto();
-        BeanUtils.copyProperties(orderItemDomain, orderItemDto);
-        return orderItemDto;
+        val orderItemDto = OrderItemDto()
+        BeanUtils.copyProperties(orderItemDomain, orderItemDto)
+        return orderItemDto
     }
 
 }
