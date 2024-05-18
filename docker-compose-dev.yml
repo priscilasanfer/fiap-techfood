@@ -1,3 +1,5 @@
+version: '3.8'
+
 services:
     postgres:
       image: postgres:13.3-alpine
@@ -8,6 +10,8 @@ services:
         - POSTGRES_DB=techfood
         - POSTGRES_PASSWORD=postgres
         - POSTGRES_USER=postgres
+      volumes:
+        - ./src/main/resources/sql_script/init-dev.sql:/docker-entrypoint-initdb.d/init.sql
 
     app:
       container_name: techfood-dev
