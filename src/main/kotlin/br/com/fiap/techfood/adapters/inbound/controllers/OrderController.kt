@@ -8,6 +8,7 @@ import br.com.fiap.techfood.adapters.inbound.mappers.OrderMapper
 import br.com.fiap.techfood.application.core.domains.CartDomain
 import br.com.fiap.techfood.application.core.domains.ClientDomain
 import br.com.fiap.techfood.application.core.domains.OrderDomain
+import br.com.fiap.techfood.application.core.domains.enums.OrderStatusEnum
 import br.com.fiap.techfood.application.ports.inbound.InsertOrderInputPort
 import br.com.fiap.techfood.application.ports.inbound.OrderInboundPort
 import org.springframework.beans.factory.annotation.Autowired
@@ -46,14 +47,21 @@ class OrderController(
 
     @GetMapping("/approved")
     fun findAllApprovedOrders(): ResponseEntity<List<OrderDto>> {
-        val orderDomainList = orderInboundPort.findAllApprovedOrders();
+        val orderDomainList = orderInboundPort.findAllByStatus(OrderStatusEnum.PAYMENT_APPROVED);
         val orderDtoList = orderDomainList.map { orderMapper.toOrderDto(it) }
         return ResponseEntity.ok().body(orderDtoList);
     }
 
     @GetMapping("/prepared")
     fun findAllPreparedOrders(): ResponseEntity<List<OrderDto>> {
-        val orderDomainList = orderInboundPort.findAllPrepared();
+        val orderDomainList = orderInboundPort.findAllByStatus(OrderStatusEnum.PREPARED);
+        val orderDtoList = orderDomainList.map { orderMapper.toOrderDto(it) }
+        return ResponseEntity.ok().body(orderDtoList);
+    }
+
+    @GetMapping("/finished")
+    fun findAllFinishedOrders(): ResponseEntity<List<OrderDto>> {
+        val orderDomainList = orderInboundPort.findAllByStatus(OrderStatusEnum.FINISHED);
         val orderDtoList = orderDomainList.map { orderMapper.toOrderDto(it) }
         return ResponseEntity.ok().body(orderDtoList);
     }

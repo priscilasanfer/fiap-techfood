@@ -48,7 +48,16 @@ class OrderAdapter(
     }
 
     override fun delete(id: UUID) {
-        orderRepository.deleteById(id)
+        val orderEntityOpt = orderRepository.findById(id)
+
+        if (orderEntityOpt.isPresent) {
+            val orderItemEntityList = orderItemRepository.findAllByIdOrder(orderEntityOpt.get())
+            if (orderItemEntityList.isNotEmpty()) {
+                orderItemRepository.deleteAll(orderItemEntityList)
+            }
+            orderRepository.deleteById(id)
+        }
+
     }
 
     override fun updateStatus(id: UUID, status: OrderStatusEnum) {

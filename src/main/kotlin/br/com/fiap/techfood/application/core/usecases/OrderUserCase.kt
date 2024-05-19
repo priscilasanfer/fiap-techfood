@@ -65,12 +65,8 @@ class OrderUserCase(
         return orderOutboundPort.findById(id)
     }
 
-    override fun findAllApprovedOrders(): List<OrderDomain> {
-        return orderOutboundPort.findAllByOrderStatus(OrderStatusEnum.PAYMENT_APPROVED)
-    }
-
-    override fun findAllPrepared(): List<OrderDomain> {
-        return orderOutboundPort.findAllByOrderStatus(OrderStatusEnum.PREPARED)
+    override fun findAllByStatus(orderStatus: OrderStatusEnum): List<OrderDomain> {
+        return orderOutboundPort.findAllByOrderStatus(orderStatus)
     }
 
     override fun delete(id: UUID) {
