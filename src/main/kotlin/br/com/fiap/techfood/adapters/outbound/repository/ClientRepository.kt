@@ -8,4 +8,5 @@ import java.util.*
 interface ClientRepository : JpaRepository<ClientEntity?, Long?> {
     fun save(client: Client): ClientEntity
     fun findById(id: UUID): Optional<ClientEntity>
+    fun findByCpf(cpf: String): Optional<ClientEntity>
 }

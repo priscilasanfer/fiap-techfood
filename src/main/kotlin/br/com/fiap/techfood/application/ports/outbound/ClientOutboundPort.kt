@@ -7,6 +7,7 @@ import java.util.*
 interface ClientOutboundPort {
     fun save(clientDomain: Client): Client
     fun findById(id: UUID): Optional<Client>
+    fun findByCpf(cpf: String): Optional<Client>
     fun findAll(pageInfo: PageInfo): List<Client>
     fun delete(clientDomain: Client)
 }

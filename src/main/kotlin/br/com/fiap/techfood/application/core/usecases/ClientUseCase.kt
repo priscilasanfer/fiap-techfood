@@ -15,6 +15,10 @@ class ClientUseCase(private var clientOutboundPort: ClientOutboundPort) : Client
         return  clientOutboundPort.findById(id)
     }
 
+    override fun findByCpf(cpf: String): Optional<Client> {
+        return clientOutboundPort.findByCpf(cpf)
+    }
+
     override fun findAll(pageInfo: PageInfo): List<Client> {
         return clientOutboundPort.findAll(pageInfo)
     }

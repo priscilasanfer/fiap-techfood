@@ -108,6 +108,19 @@ class ClientController(
         return ResponseEntity.status(HttpStatus.OK).body(clientDTO)
     }
 
+    @GetMapping("cpf/{cpf}")
+    fun findByCpf(@PathVariable(value = "cpf") clientCpf: String): ResponseEntity<Any> {
+
+        val clientDomainOptional = clientInboundPort.findByCpf(clientCpf)
+
+        return clientDomainOptional.map { clientDomain ->
+            val clientDto = clientMapper.toClientDTO(clientDomain)
+            ResponseEntity.ok<Any>(clientDto)
+        }.orElseGet {
+            ResponseEntity.status(HttpStatus.NOT_FOUND).body("Client not found.")
+        }
+    }
+
 
 }
 

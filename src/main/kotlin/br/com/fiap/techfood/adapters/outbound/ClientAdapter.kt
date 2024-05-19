@@ -34,6 +34,15 @@ class ClientAdapter(
         }
     }
 
+    override fun findByCpf(cpf: String): Optional<Client> {
+
+
+
+        return clientRepository.findByCpf(cpf).map {
+            clientEntity -> clientEntityMapper.toClientDomain(clientEntity)
+        }
+    }
+
     override fun findAll(pageInfo: PageInfo): List<Client> {
         val pageable: Pageable = PageRequest.of(pageInfo.pageNumber, pageInfo.pageSize)
         return clientRepository.findAll(pageable)
