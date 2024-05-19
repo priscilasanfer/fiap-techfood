@@ -67,8 +67,9 @@ class OrderController(
     }
 
     @DeleteMapping("/{orderId}")
-    fun deleteOrder(@PathVariable orderId: UUID) {
+    fun deleteOrder(@PathVariable orderId: UUID): ResponseEntity<Void> {
         orderInboundPort.delete(orderId);
+        return ResponseEntity.noContent().build();
     }
 
     @PostMapping("/{orderId}/pay")
