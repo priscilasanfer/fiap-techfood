@@ -5,7 +5,7 @@ import java.util.*
 
 @Data
 class OrderItemDto {
-    val productId: UUID? = null
-    val quantity: Int? = null
-    val description: String? = null
+    var productId: UUID? = null
+    var quantity: Int? = null
+    var description: String? = null
 }
