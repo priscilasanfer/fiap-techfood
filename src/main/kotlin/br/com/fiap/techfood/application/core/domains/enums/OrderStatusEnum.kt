@@ -1,26 +1,25 @@
 package br.com.fiap.techfood.application.core.domains.enums
 
-enum class CategoryEnum(val categoryName: String, val id: Int) {
-    SNACK("Lanche", 1),
-    SIDE_DISH("Acompanhamento", 2),
-    DRINK("Bebida", 3),
-    DESSERT("Sobremesa", 4),
+enum class OrderStatusEnum(val code: Int) {
+    AWAITING_PAYMENT(1),
+    PAYMENT_APPROVED(2),
+    REJECTED(3),
+    PREPARED(4),
+    FINISHED(5),
     ;
 
     companion object {
-        fun toEnum(code: Int?): CategoryEnum? {
+        fun toEnum(code: Int?): OrderStatusEnum? {
             if (code == null) {
                 return null
             }
 
-            for (x in CategoryEnum.entries) {
-                if (code == x.id) {
+            for (x in entries) {
+                if (code == x.code) {
                     return x
                 }
             }
             throw IllegalArgumentException("Order Status code invalid.")
         }
     }
-
-
 }
