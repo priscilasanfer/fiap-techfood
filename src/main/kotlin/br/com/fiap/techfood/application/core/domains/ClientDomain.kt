@@ -4,7 +4,7 @@ import java.util.*
 
 data class ClientDomain(
     var id: UUID? = null,
-    var cpf: String? = null,
-    var name: String? = null,
-    var email: String? = null
+    var cpf: String,
+    var name: String,
+    var email: String
 )

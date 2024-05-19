@@ -98,9 +98,9 @@ class ClientController(
         }
 
         val clientDomain = clientDomainOptional.get()
-        clientDomain.name = clientDto.name
-        clientDomain.cpf = clientDto.cpf
-        clientDomain.email = clientDto.email
+        clientDomain.name = clientDto.name!!
+        clientDomain.cpf = clientDto.cpf!!
+        clientDomain.email = clientDto.email!!
 
         val clientDomainSaved = clientInboundPort.save(clientDomain)
         val clientDTO = clientMapper.toClientDTO(clientDomainSaved)

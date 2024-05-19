@@ -8,9 +8,9 @@ import org.springframework.stereotype.Component
 class ClientMapper {
     fun toClientDomain(clientDTO: ClientDTO): ClientDomain {
         return ClientDomain(
-            cpf = clientDTO.cpf,
-            name = clientDTO.name,
-            email = clientDTO.email,
+            cpf = clientDTO.cpf!!,
+            name = clientDTO.name!!,
+            email = clientDTO.email!!,
         )
     }
 
