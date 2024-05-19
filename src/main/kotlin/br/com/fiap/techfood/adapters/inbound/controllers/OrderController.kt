@@ -45,6 +45,13 @@ class OrderController(
         return ResponseEntity.ok().body(response);
     }
 
+    @GetMapping("/awaiting-payment")
+    fun findAllAwaitingPayment(): ResponseEntity<List<OrderDto>> {
+        val orderDomainList = orderInboundPort.findAllByStatus(OrderStatusEnum.AWAITING_PAYMENT);
+        val orderDtoList = orderDomainList.map { orderMapper.toOrderDto(it) }
+        return ResponseEntity.ok().body(orderDtoList);
+    }
+
     @GetMapping("/approved")
     fun findAllApprovedOrders(): ResponseEntity<List<OrderDto>> {
         val orderDomainList = orderInboundPort.findAllByStatus(OrderStatusEnum.PAYMENT_APPROVED);
@@ -87,6 +94,5 @@ class OrderController(
     fun finishOrder(@PathVariable orderId: UUID) {
         orderInboundPort.finishOrder(orderId);
     }
-
 
 }
