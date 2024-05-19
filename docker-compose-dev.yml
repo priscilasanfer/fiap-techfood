@@ -1,9 +1,9 @@
 version: '3.8'
 
 services:
-    postgres:
+    postgres_dev:
       image: postgres:13.3-alpine
-      container_name: postgres-dev
+      container_name: postgres_dev
       ports:
         - "5432:5432"
       environment:
@@ -12,18 +12,26 @@ services:
         - POSTGRES_USER=postgres
       volumes:
         - ./src/main/resources/sql_script/init-dev.sql:/docker-entrypoint-initdb.d/init.sql
+      networks:
+        - dev
 
-    app:
-      container_name: techfood-dev
+    app_dev:
+      container_name: techfood_dev
       build:
         context: .
         dockerfile: Dockerfile
       ports:
         - "8080:8080"
       depends_on:
-        - postgres
+        - postgres_dev
       environment:
-        - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/techfood
+        - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres_dev:5432/techfood
         - SPRING_DATASOURCE_USERNAME=postgres
         - SPRING_DATASOURCE_PASSWORD=postgres
         - SPRING_PROFILES_ACTIVE=dev
+      networks:
+        - dev
+
+networks:
+  dev:
+    driver: bridge
