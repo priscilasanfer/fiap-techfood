@@ -6,6 +6,7 @@ import br.com.fiap.techfood.application.core.domains.ProductDomain
 import br.com.fiap.techfood.application.core.domains.enums.CategoryEnum
 import br.com.fiap.techfood.application.ports.outbound.ProductOutboundPort
 import org.springframework.stereotype.Component
+import java.util.Optional
 import java.util.UUID
 
 @Component
@@ -14,6 +15,7 @@ class ProductAdapter(
     private val productEntityMapper: ProductEntityMapper
 ) :
     ProductOutboundPort {
+
     override fun save(product: ProductDomain): ProductDomain {
         val productEntity = productEntityMapper.toProductEntity(product)
         val newProductEntity = productRepository.save(productEntity)
@@ -21,25 +23,13 @@ class ProductAdapter(
     }
 
     override fun update(id: UUID, updatedProduct: ProductDomain): ProductDomain {
-        val existingProduct = productRepository.findById(id).orElseThrow {
-            IllegalArgumentException("Product with ID $id not found")
-        }
-
-        existingProduct!!.name = updatedProduct.name
-        existingProduct.description = updatedProduct.description
-        existingProduct.price = updatedProduct.price
-        existingProduct.setCategory(updatedProduct.category)
-        existingProduct.imageURL = updatedProduct.imageURL
-
-        val updatedEntity = productRepository.save(existingProduct)
-
-        return productEntityMapper.toProductDomain(updatedEntity)
+        var productEntity = productEntityMapper.toProductEntity(updatedProduct)
+        productEntity = productRepository.save(productEntity)
+        return productEntityMapper.toProductDomain(productEntity)
     }
 
-    override fun findById(id: UUID): ProductDomain {
-        val productEntity = productRepository.findById(id).orElseThrow()
-
-        return productEntityMapper.toProductDomain(productEntity!!)
+    override fun findById(id: UUID): Optional<ProductDomain> {
+        return productRepository.findById(id).map { this.productEntityMapper.toProductDomain(it) }
     }
 
     override fun findByCategory(category: CategoryEnum): List<ProductDomain> {

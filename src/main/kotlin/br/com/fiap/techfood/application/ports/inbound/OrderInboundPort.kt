@@ -10,7 +10,7 @@ interface OrderInboundPort {
 
     fun save(cartDomain: CartDomain, clientDomain: ClientDomain?): OrderDomain
 
-    fun findById(id: UUID): Optional<OrderDomain>
+    fun findById(id: UUID): OrderDomain
 
     fun findAllByStatus(orderStatus: OrderStatusEnum): List<OrderDomain>
 

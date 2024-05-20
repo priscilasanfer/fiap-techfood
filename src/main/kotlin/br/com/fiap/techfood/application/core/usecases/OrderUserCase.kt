@@ -61,8 +61,12 @@ class OrderUserCase(
         return orderDomain
     }
 
-    override fun findById(id: UUID): Optional<OrderDomain> {
-        return orderOutboundPort.findById(id)
+    override fun findById(id: UUID): OrderDomain {
+        val optOrderDomain = orderOutboundPort.findById(id);
+        if (optOrderDomain.isEmpty) {
+            throw ObjectNotFoundException("Order $id not found.")
+        }
+        return optOrderDomain.get();
     }
 
     override fun findAllByStatus(orderStatus: OrderStatusEnum): List<OrderDomain> {
@@ -70,12 +74,8 @@ class OrderUserCase(
     }
 
     override fun delete(id: UUID) {
-        val optOrderDomain = orderOutboundPort.findById(id);
-        if (optOrderDomain.isEmpty) {
-            throw ObjectNotFoundException("Order $id not found.")
-        }
+        val orderDomain = this.findById(id);
 
-        val orderDomain = optOrderDomain.get();
         if (orderDomain.status != OrderStatusEnum.AWAITING_PAYMENT) {
             throw DataIntegrityException("It is only possible to delete an order with the status of awaiting payment.")
         }
@@ -84,12 +84,8 @@ class OrderUserCase(
     }
 
     override fun approvePayment(id: UUID): String {
-        val optOrderDomain = orderOutboundPort.findById(id);
-        if (optOrderDomain.isEmpty) {
-            throw ObjectNotFoundException("Order $id not found.")
-        }
+        val orderDomain = this.findById(id);
 
-        val orderDomain = optOrderDomain.get();
         if (orderDomain.status != OrderStatusEnum.AWAITING_PAYMENT) {
             throw DataIntegrityException("It is only possible to approve payment for an order with status Awaiting Payment.")
         }
@@ -99,12 +95,8 @@ class OrderUserCase(
     }
 
     override fun prepareOrder(id: UUID) {
-        val optOrderDomain = orderOutboundPort.findById(id);
-        if (optOrderDomain.isEmpty) {
-            throw ObjectNotFoundException("Order $id not found.")
-        }
+        val orderDomain = this.findById(id);
 
-        val orderDomain = optOrderDomain.get();
         if (orderDomain.status != OrderStatusEnum.PAYMENT_APPROVED) {
             throw DataIntegrityException("It is only possible to prepare orders with Payment Approved status.")
         }
@@ -113,12 +105,8 @@ class OrderUserCase(
     }
 
     override fun finishOrder(id: UUID) {
-        val optOrderDomain = orderOutboundPort.findById(id);
-        if (optOrderDomain.isEmpty) {
-            throw ObjectNotFoundException("Order $id not found.")
-        }
+        val orderDomain = this.findById(id);
 
-        val orderDomain = optOrderDomain.get();
         if (orderDomain.status != OrderStatusEnum.PREPARED) {
             throw DataIntegrityException("It is only possible to finalize orders with a Ready status.")
         }
