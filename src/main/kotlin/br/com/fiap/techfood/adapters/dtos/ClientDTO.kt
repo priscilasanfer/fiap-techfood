@@ -4,7 +4,7 @@ import jakarta.validation.constraints.Email
 import org.hibernate.validator.constraints.br.CPF
 import org.jetbrains.annotations.NotNull
 
-data class ClientDTO(
+class ClientDTO(
     @NotNull
     @CPF
     var cpf: String?,

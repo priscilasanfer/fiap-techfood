@@ -16,12 +16,6 @@ class SwaggerConfiguration {
                     .title("Tech Food")
                     .description("Tech Food backend application")
             )
-        // Vou deixar para referencia futura:
-        //.externalDocs(
-        //    ExternalDocumentation()
-        //        .description("SpringShop Wiki Documentation")
-        //        .url("https://springshop.wiki.github.org/docs")
-        //)
     }
 
 }

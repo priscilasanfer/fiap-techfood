@@ -51,7 +51,7 @@ class ProductController(
     @DeleteMapping("/{id}")
     fun deleteById(@PathVariable id: UUID): ResponseEntity<Void> {
         productInboundPort.delete(id)
-        return ResponseEntity.ok().build<Void>()
+        return ResponseEntity.noContent().build()
     }
 
     @PutMapping("/{id}")

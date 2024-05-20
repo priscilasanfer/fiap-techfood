@@ -1,7 +1,6 @@
 package br.com.fiap.techfood.adapters.inbound.mappers
 
-import br.com.fiap.techfood.adapters.dtos.CartDTO
-import br.com.fiap.techfood.adapters.dtos.OrderCreateDto
+import br.com.fiap.techfood.adapters.dtos.OrderCreateDTO
 import br.com.fiap.techfood.adapters.dtos.OrderItemDto
 import br.com.fiap.techfood.application.core.domains.CartDomain
 import br.com.fiap.techfood.application.core.domains.OrderItemDomain
@@ -11,7 +10,7 @@ import java.util.stream.Collectors
 
 @Component
 class CartMapper {
-    fun toCartDomain(orderCreateDto: OrderCreateDto): CartDomain {
+    fun toCartDomain(orderCreateDto: OrderCreateDTO): CartDomain {
         val cartDomain = CartDomain()
         cartDomain.orderName = orderCreateDto.orderName;
         cartDomain.cartProducts = toOrderItemDomainList(orderCreateDto.cart!!.cartProducts)

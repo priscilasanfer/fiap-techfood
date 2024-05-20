@@ -33,7 +33,7 @@ class ProductAdapter(
     }
 
     override fun findByCategory(category: CategoryEnum): List<ProductDomain> {
-        val productEntities = productRepository.findByCategory(category)
+        val productEntities = productRepository.findByCategory(category.id)
         return productEntities.map { productEntity ->
             productEntityMapper.toProductDomain(productEntity)
         }

@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component
 
 @Component
 class ProductMapper {
-
     fun toProductDomain(productDto: ProductDTO?): ProductDomain {
         if (productDto == null) {
             throw IllegalArgumentException("ProductDTO cannot be null")
@@ -35,7 +34,6 @@ class ProductMapper {
             imageURL = productCreateDTO.imageURL,
         )
     }
-
 
     fun toProductDto(product: ProductDomain?): ProductDTO {
         if (product == null) {

@@ -4,7 +4,7 @@ import br.com.fiap.techfood.application.core.domains.enums.CategoryEnum
 import java.math.BigDecimal
 import java.util.*
 
-data class ProductDomain (
+class ProductDomain (
 
     var id: UUID? = null,
     var name : String,
@@ -12,5 +12,4 @@ data class ProductDomain (
     var price : BigDecimal,
     var category : CategoryEnum,
     var imageURL : String,
-
-    )
+)

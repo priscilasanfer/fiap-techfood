@@ -1,6 +1,6 @@
 package br.com.fiap.techfood.adapters.inbound.controllers
 
-import br.com.fiap.techfood.adapters.dtos.OrderCreateDto
+import br.com.fiap.techfood.adapters.dtos.OrderCreateDTO
 import br.com.fiap.techfood.adapters.dtos.OrderDto
 import br.com.fiap.techfood.adapters.inbound.mappers.CartMapper
 import br.com.fiap.techfood.adapters.inbound.mappers.ClientMapper
@@ -9,9 +9,7 @@ import br.com.fiap.techfood.application.core.domains.CartDomain
 import br.com.fiap.techfood.application.core.domains.ClientDomain
 import br.com.fiap.techfood.application.core.domains.OrderDomain
 import br.com.fiap.techfood.application.core.domains.enums.OrderStatusEnum
-import br.com.fiap.techfood.application.ports.inbound.InsertOrderInputPort
 import br.com.fiap.techfood.application.ports.inbound.OrderInboundPort
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.DeleteMapping
@@ -26,14 +24,14 @@ import java.util.*
 @RestController
 @RequestMapping("/orders")
 class OrderController(
-    @Autowired private val orderInboundPort: OrderInboundPort,
-    @Autowired private val orderMapper: OrderMapper,
-    @Autowired private val clientMapper: ClientMapper,
-    @Autowired private val cartMapper: CartMapper
+    private val orderInboundPort: OrderInboundPort,
+    private val orderMapper: OrderMapper,
+    private val clientMapper: ClientMapper,
+    private val cartMapper: CartMapper
 ) {
 
     @PostMapping
-    fun makeOrder(@RequestBody @Validated orderCreateDto: OrderCreateDto): ResponseEntity<OrderDomain> {
+    fun makeOrder(@RequestBody @Validated orderCreateDto: OrderCreateDTO): ResponseEntity<OrderDomain> {
         val cartDomain: CartDomain = cartMapper.toCartDomain(orderCreateDto);
         var clientDomain: ClientDomain? = null
 
