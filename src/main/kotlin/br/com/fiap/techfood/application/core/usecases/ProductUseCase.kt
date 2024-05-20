@@ -4,22 +4,36 @@ import br.com.fiap.techfood.application.core.domains.ProductDomain
 import br.com.fiap.techfood.application.core.domains.enums.CategoryEnum
 import br.com.fiap.techfood.application.ports.inbound.ProductInboundPort
 import br.com.fiap.techfood.application.ports.outbound.ProductOutboundPort
+import org.springframework.stereotype.Service
 import java.util.*
 
-class ProductUseCase(private var productOutboundPort: ProductOutboundPort) : ProductInboundPort {
-    override fun save(product: ProductDomain): ProductDomain {
+@Service
+class ProductUseCase(
+    private var productOutboundPort: ProductOutboundPort
+) : ProductInboundPort {
+
+    override fun registerNewProduct(product: ProductDomain): ProductDomain {
         return productOutboundPort.save(product)
     }
 
-    override fun update(id: UUID, updatedProduct: ProductDomain) : ProductDomain {
-        return productOutboundPort.update(id, updatedProduct)
+    override fun updateProduct(id: UUID, updatedProduct: ProductDomain): ProductDomain {
+        var existingProduct = productOutboundPort.findById(id)
+
+        existingProduct.name = updatedProduct.name
+        existingProduct.description = updatedProduct.description
+        existingProduct.price = updatedProduct.price
+        existingProduct.category= updatedProduct.category
+        existingProduct.imageURL = updatedProduct.imageURL
+
+        val productUpdated = productOutboundPort.save(existingProduct)
+        return productUpdated
     }
 
-    override fun findById(id: UUID): ProductDomain {
+    override fun searchProductById(id: UUID): ProductDomain {
         return productOutboundPort.findById(id)
     }
 
-    override fun findByCategory(category: CategoryEnum): List<ProductDomain> {
+    override fun searchProductByCategory(category: CategoryEnum): List<ProductDomain> {
         return productOutboundPort.findByCategory(category)
     }
 
@@ -27,7 +41,11 @@ class ProductUseCase(private var productOutboundPort: ProductOutboundPort) : Pro
         return productOutboundPort.findAll()
     }
 
-    override fun delete(id: UUID){
+    override fun deleteProduct(id: UUID) {
         productOutboundPort.delete(id)
+    }
+
+    override fun findAllByIds(ids: MutableSet<UUID>): List<ProductDomain> {
+        return productOutboundPort.findAllByIds(ids)
     }
 }

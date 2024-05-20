@@ -6,7 +6,6 @@ import java.util.*
 
 interface ProductOutboundPort {
     fun save(product: ProductDomain): ProductDomain
-    fun update(id: UUID, updatedProduct: ProductDomain) : ProductDomain
     fun findById(id: UUID): ProductDomain
     fun findByCategory(category: CategoryEnum): List<ProductDomain>
     fun findAll(): List<ProductDomain>

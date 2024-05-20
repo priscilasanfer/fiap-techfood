@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component
 
 @Component
 class ProductMapper {
-    fun toProduct(productDto: ProductDTO?): ProductDomain {
+    fun dtoToDomain(productDto: ProductDTO?): ProductDomain {
         if (productDto == null) {
             throw IllegalArgumentException("ProductDTO cannot be null")
         }
@@ -20,7 +20,7 @@ class ProductMapper {
         )
     }
 
-    fun productToProductDto(product: ProductDomain?): ProductDTO {
+    fun domainToDto(product: ProductDomain?): ProductDTO {
         if (product == null) {
             throw IllegalArgumentException("ProductEntity cannot be null")
         }
