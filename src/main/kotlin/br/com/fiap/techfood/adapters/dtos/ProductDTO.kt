@@ -1,6 +1,6 @@
 package br.com.fiap.techfood.adapters.dtos
 
-import br.com.fiap.techfood.application.core.domains.enums.CategoryEnum
+import br.com.fiap.techfood.core.application.domains.enums.CategoryEnum
 import jakarta.validation.constraints.NotNull
 import java.math.BigDecimal
 import java.util.UUID

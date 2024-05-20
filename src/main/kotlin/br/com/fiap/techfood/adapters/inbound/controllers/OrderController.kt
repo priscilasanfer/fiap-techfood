@@ -5,11 +5,10 @@ import br.com.fiap.techfood.adapters.dtos.OrderDto
 import br.com.fiap.techfood.adapters.inbound.mappers.CartMapper
 import br.com.fiap.techfood.adapters.inbound.mappers.ClientMapper
 import br.com.fiap.techfood.adapters.inbound.mappers.OrderMapper
-import br.com.fiap.techfood.application.core.domains.CartDomain
-import br.com.fiap.techfood.application.core.domains.ClientDomain
-import br.com.fiap.techfood.application.core.domains.OrderDomain
-import br.com.fiap.techfood.application.ports.inbound.InsertOrderInputPort
-import br.com.fiap.techfood.application.ports.inbound.OrderInboundPort
+import br.com.fiap.techfood.core.application.domains.CartDomain
+import br.com.fiap.techfood.core.application.domains.ClientDomain
+import br.com.fiap.techfood.core.application.domains.OrderDomain
+import br.com.fiap.techfood.core.ports.inbound.OrderInboundPort
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
 import org.springframework.validation.annotation.Validated

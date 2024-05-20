@@ -2,8 +2,8 @@ package br.com.fiap.techfood.adapters.inbound.controllers
 
 import br.com.fiap.techfood.adapters.dtos.ProductDTO
 import br.com.fiap.techfood.adapters.inbound.mappers.ProductMapper
-import br.com.fiap.techfood.application.core.domains.enums.CategoryEnum
-import br.com.fiap.techfood.application.ports.inbound.ProductInboundPort
+import br.com.fiap.techfood.core.application.domains.enums.CategoryEnum
+import br.com.fiap.techfood.core.ports.inbound.ProductInboundPort
 import jakarta.validation.Valid
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
