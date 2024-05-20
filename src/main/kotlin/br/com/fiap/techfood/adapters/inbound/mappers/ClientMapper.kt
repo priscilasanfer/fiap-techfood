@@ -1,6 +1,7 @@
 package br.com.fiap.techfood.adapters.inbound.mappers
 
 import br.com.fiap.techfood.adapters.dtos.ClientDTO
+import br.com.fiap.techfood.adapters.dtos.ClientResponseDTO
 import br.com.fiap.techfood.application.core.domains.ClientDomain
 import org.springframework.stereotype.Component
 
@@ -19,6 +20,16 @@ class ClientMapper {
             cpf = clientDomain.cpf,
             name = clientDomain.name,
             email = clientDomain.email
+        )
+    }
+
+    fun toClientResponseDTO(clientDomain: ClientDomain): ClientResponseDTO {
+        return ClientResponseDTO(
+            id = clientDomain.id,
+            cpf = clientDomain.cpf,
+            name = clientDomain.name,
+            email = clientDomain.email
+
         )
     }
 }
