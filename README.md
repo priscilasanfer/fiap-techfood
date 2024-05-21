@@ -25,7 +25,6 @@ Também fornece aos administradores ferramentas para gerenciar os clientes, os p
 
 ## Documentação
 
-TODO  
 [Event Storming](https://miro.com/app/board/uXjVPtIvRFs=/)
 
 
@@ -68,6 +67,7 @@ Para acessar o Swagger utilize a url [http://localhost:8080/swagger-ui/index.htm
 
 O ambiente de desenvolvimento já sobe com alguns dados no banco, isso facilita o processo de teste do código. 
 
-Para subir o ambiente de desenvolvimento utilize o comando: `sudo docker compose -f docker-compose-dev.yml up`
+1. Para subir o ambiente de desenvolvimento adicione a opção: `spring.profiles.active=dev` no arquivo `application.properties`.
+2. Agora faça o Build do projeto rodando o comando `$ mvn install -DskipTests`
 
-Se for necessário fazer um reset no ambiente, pode usar o comando: `sudo docker compose -f docker-compose-dev.yml down --rmi all`.
+> Se for necessário fazer um reset no ambiente, pode usar o comando: `$ docker compose down --rmi all`.
