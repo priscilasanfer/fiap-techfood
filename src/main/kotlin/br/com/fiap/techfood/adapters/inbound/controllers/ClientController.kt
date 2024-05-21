@@ -5,9 +5,7 @@ import br.com.fiap.techfood.adapters.dtos.ClientResponseDTO
 import br.com.fiap.techfood.adapters.inbound.mappers.ClientMapper
 import br.com.fiap.techfood.core.application.domains.PageInfo
 import br.com.fiap.techfood.core.ports.inbound.ClientInboundPort
-import jakarta.validation.Valid
 import org.springframework.beans.BeanUtils
-import org.springframework.dao.DataIntegrityViolationException
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageImpl
 import org.springframework.data.domain.Pageable
@@ -15,6 +13,7 @@ import org.springframework.data.domain.Sort
 import org.springframework.data.web.PageableDefault
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
 import java.util.*
 
@@ -22,22 +21,15 @@ import java.util.*
 @RestController
 @RequestMapping("/clients")
 class ClientController(
-    private var clientInboundPort: ClientInboundPort,
-    private var clientMapper: ClientMapper
+    private val clientInboundPort: ClientInboundPort, private val clientMapper: ClientMapper
 
 ) {
     @PostMapping
-    fun save(@RequestBody @Valid clientDTO: ClientDTO): ResponseEntity<Any> {
-        try {
-
-            val clientDomain = clientMapper.toClientDomain(clientDTO)
-            val clientDomainSaved = clientInboundPort.save(clientDomain)
-            val clientDTOSaved = clientMapper.toClientResponseDTO(clientDomainSaved)
-            return ResponseEntity.status(HttpStatus.CREATED).body(clientDTOSaved)
-        } catch (ex: DataIntegrityViolationException) {
-            val errorDetails = mapOf("error" to "Data Integrity Violation", "message" to "CPF or Email already exists.")
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(errorDetails)
-        }
+    fun save(@RequestBody @Validated clientDTO: ClientDTO): ResponseEntity<ClientResponseDTO> {
+        val clientDomain = clientMapper.toClientDomain(clientDTO)
+        val clientDomainSaved = clientInboundPort.save(clientDomain)
+        val clientDTOSaved = clientMapper.toClientResponseDTO(clientDomainSaved)
+        return ResponseEntity.status(HttpStatus.CREATED).body(clientDTOSaved)
     }
 
     @GetMapping("/{clientId}")
@@ -66,8 +58,7 @@ class ClientController(
 
         return ResponseEntity.status(HttpStatus.OK).body<Page<ClientResponseDTO>>(
             PageImpl<ClientResponseDTO>(
-                clientDTOList,
-                pageable, clientDomainList.size.toLong()
+                clientDTOList, pageable, clientDomainList.size.toLong()
             )
         )
     }
@@ -88,8 +79,7 @@ class ClientController(
 
     @PutMapping("/{clientId}")
     fun updateClient(
-        @PathVariable(value = "clientId") clientId: UUID,
-        @RequestBody clientDto: @Valid ClientDTO
+        @PathVariable(value = "clientId") clientId: UUID, @RequestBody @Validated clientDto: ClientDTO
     ): ResponseEntity<Any> {
 
         val clientDomainOptional = clientInboundPort.findById(clientId)

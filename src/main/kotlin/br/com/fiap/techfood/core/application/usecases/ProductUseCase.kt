@@ -5,10 +5,8 @@ import br.com.fiap.techfood.core.application.domains.enums.CategoryEnum
 import br.com.fiap.techfood.core.application.domains.exceptions.ObjectNotFoundException
 import br.com.fiap.techfood.core.ports.inbound.ProductInboundPort
 import br.com.fiap.techfood.core.ports.outbound.repositories.ProductRepositoryCore
-import org.springframework.stereotype.Service
 import java.util.*
 
-@Service
 class ProductUseCase(
     private var productRepositoryCore: ProductRepositoryCore
 ) : ProductInboundPort {

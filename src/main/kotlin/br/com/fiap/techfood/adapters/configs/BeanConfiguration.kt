@@ -9,8 +9,6 @@ import br.com.fiap.techfood.core.application.usecases.OrderUserCase
 import br.com.fiap.techfood.core.ports.outbound.repositories.ClientRepositoryCore
 import br.com.fiap.techfood.core.application.usecases.ProductUseCase
 import br.com.fiap.techfood.core.ports.outbound.repositories.ProductRepositoryCore
-import io.swagger.v3.oas.models.OpenAPI
-import io.swagger.v3.oas.models.info.Info
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.ComponentScan
 import org.springframework.context.annotation.Configuration
