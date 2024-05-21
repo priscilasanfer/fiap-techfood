@@ -1,6 +1,6 @@
 package br.com.fiap.techfood.adapters.outbound
 
-import br.com.fiap.techfood.application.ports.outbound.CpfValidationOutputPort
+import br.com.fiap.techfood.core.ports.outbound.CpfValidationOutputPort
 import org.springframework.stereotype.Component
 
 @Component

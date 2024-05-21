@@ -1,7 +1,7 @@
 package br.com.fiap.techfood.adapters.inbound.exceptions
 
-import br.com.fiap.techfood.application.core.domains.exceptions.DataIntegrityException
-import br.com.fiap.techfood.application.core.domains.exceptions.ObjectNotFoundException
+import br.com.fiap.techfood.core.application.domains.exceptions.DataIntegrityException
+import br.com.fiap.techfood.core.application.domains.exceptions.ObjectNotFoundException
 import jakarta.servlet.http.HttpServletRequest
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity

@@ -6,33 +6,24 @@ import java.util.UUID
 
 @Entity
 @Table(name = "TB_CLIENTS")
-class ClientEntity {
+data class ClientEntity (
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    var id: UUID? = null;
+    var id: UUID? = null,
 
     @Column(nullable = false, unique = true)
-    var cpf: String? = null
+    var cpf: String,
 
     @Column(nullable = false)
-    var name: String? = null
+    var name: String,
 
     @Column(nullable = false, unique = true)
-    var email: String? = null
+    var email: String,
 
-    @OneToMany(mappedBy = "client")
+    @OneToMany(mappedBy = "client", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
     var orders: MutableList<OrderEntity> = mutableListOf()
-
-    constructor(id: UUID) {
-        this.id = id;
-    }
-
-    constructor(id: UUID?, cpf: String?, name: String?, email: String?) {
-        this.id = id;
-        this.cpf = cpf;
-        this.name = name;
-        this.email = email;
-    }
-
+    )
+    {
+    constructor(id: UUID) : this(id, "Anonymous", "Anonymous", "Anonymous", mutableListOf())
 }
