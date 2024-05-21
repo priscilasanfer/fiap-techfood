@@ -1,6 +1,6 @@
 package br.com.fiap.techfood.adapters.outbound.repository.entities
 
-import br.com.fiap.techfood.application.core.domains.enums.OrderStatusEnum
+import br.com.fiap.techfood.core.application.domains.enums.OrderStatusEnum
 import jakarta.persistence.*
 import lombok.Data
 import java.time.LocalDateTime

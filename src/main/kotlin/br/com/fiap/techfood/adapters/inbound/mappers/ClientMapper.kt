@@ -1,17 +1,16 @@
 package br.com.fiap.techfood.adapters.inbound.mappers
 
 import br.com.fiap.techfood.adapters.dtos.ClientDTO
-import br.com.fiap.techfood.adapters.dtos.ClientResponseDTO
-import br.com.fiap.techfood.application.core.domains.ClientDomain
+import br.com.fiap.techfood.core.application.domains.ClientDomain
 import org.springframework.stereotype.Component
 
 @Component
 class ClientMapper {
     fun toClientDomain(clientDTO: ClientDTO): ClientDomain {
         return ClientDomain(
-            cpf = clientDTO.cpf,
-            name = clientDTO.name,
-            email = clientDTO.email,
+            cpf = clientDTO.cpf!!,
+            name = clientDTO.name!!,
+            email = clientDTO.email!!,
         )
     }
 

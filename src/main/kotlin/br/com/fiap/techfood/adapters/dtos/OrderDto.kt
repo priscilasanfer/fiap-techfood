@@ -1,7 +1,7 @@
 package br.com.fiap.techfood.adapters.dtos
 
-import br.com.fiap.techfood.application.core.domains.ClientDomain
-import br.com.fiap.techfood.application.core.domains.enums.OrderStatusEnum
+import br.com.fiap.techfood.core.application.domains.ClientDomain
+import br.com.fiap.techfood.core.application.domains.enums.OrderStatusEnum
 import java.util.UUID
 
 class OrderDto(

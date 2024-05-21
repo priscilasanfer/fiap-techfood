@@ -3,8 +3,8 @@ package br.com.fiap.techfood.adapters.inbound.controllers
 import br.com.fiap.techfood.adapters.dtos.ClientDTO
 import br.com.fiap.techfood.adapters.dtos.ClientResponseDTO
 import br.com.fiap.techfood.adapters.inbound.mappers.ClientMapper
-import br.com.fiap.techfood.application.core.domains.PageInfo
-import br.com.fiap.techfood.application.ports.inbound.ClientInboundPort
+import br.com.fiap.techfood.core.application.domains.PageInfo
+import br.com.fiap.techfood.core.ports.inbound.ClientInboundPort
 import jakarta.validation.Valid
 import org.springframework.beans.BeanUtils
 import org.springframework.dao.DataIntegrityViolationException
@@ -99,14 +99,28 @@ class ClientController(
         }
 
         val clientDomain = clientDomainOptional.get()
-        clientDomain.name = clientDto.name
-        clientDomain.cpf = clientDto.cpf
-        clientDomain.email = clientDto.email
+        clientDomain.name = clientDto.name!!
+        clientDomain.cpf = clientDto.cpf!!
+        clientDomain.email = clientDto.email!!
 
         val clientDomainSaved = clientInboundPort.save(clientDomain)
         val clientDTO = clientMapper.toClientResponseDTO(clientDomainSaved)
 
         return ResponseEntity.status(HttpStatus.OK).body(clientDTO)
     }
+
+    @GetMapping("cpf/{cpf}")
+    fun findByCpf(@PathVariable(value = "cpf") clientCpf: String): ResponseEntity<Any> {
+
+        val clientDomainOptional = clientInboundPort.findByCpf(clientCpf)
+
+        return clientDomainOptional.map { clientDomain ->
+            val clientDto = clientMapper.toClientDTO(clientDomain)
+            ResponseEntity.ok<Any>(clientDto)
+        }.orElseGet {
+            ResponseEntity.status(HttpStatus.NOT_FOUND).body("Client not found.")
+        }
+    }
+
 
 }

@@ -63,3 +63,11 @@ Para executar o sistema, siga as instruções abaixo:
 ## Acessando Swagger
 
 Para acessar o Swagger utilize a url [http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html).
+
+## Ambiente de desenvolvimento
+
+O ambiente de desenvolvimento já sobe com alguns dados no banco, isso facilita o processo de teste do código. 
+
+Para subir o ambiente de desenvolvimento utilize o comando: `sudo docker compose -f docker-compose-dev.yml up`
+
+Se for necessário fazer um reset no ambiente, pode usar o comando: `sudo docker compose -f docker-compose-dev.yml down --rmi all`.

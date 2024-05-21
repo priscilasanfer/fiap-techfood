@@ -1,8 +1,8 @@
 package br.com.fiap.techfood.adapters.outbound.repository.mappers
 
 import br.com.fiap.techfood.adapters.outbound.repository.entities.*
-import br.com.fiap.techfood.application.core.domains.OrderDomain
-import br.com.fiap.techfood.application.core.domains.OrderItemDomain
+import br.com.fiap.techfood.core.application.domains.OrderDomain
+import br.com.fiap.techfood.core.application.domains.OrderItemDomain
 import org.springframework.stereotype.Component
 
 @Component

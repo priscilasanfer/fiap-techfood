@@ -1,9 +1,9 @@
 package br.com.fiap.techfood.adapters.inbound.mappers
 
-import br.com.fiap.techfood.adapters.dtos.OrderCreateDTO
+import br.com.fiap.techfood.adapters.dtos.OrderCreateDto
 import br.com.fiap.techfood.adapters.dtos.OrderItemDto
-import br.com.fiap.techfood.application.core.domains.CartDomain
-import br.com.fiap.techfood.application.core.domains.OrderItemDomain
+import br.com.fiap.techfood.core.application.domains.CartDomain
+import br.com.fiap.techfood.core.application.domains.OrderItemDomain
 import org.springframework.beans.BeanUtils
 import org.springframework.stereotype.Component
 import java.util.stream.Collectors
