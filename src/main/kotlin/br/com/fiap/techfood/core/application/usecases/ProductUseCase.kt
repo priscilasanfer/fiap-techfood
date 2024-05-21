@@ -2,6 +2,7 @@ package br.com.fiap.techfood.core.application.usecases
 
 import br.com.fiap.techfood.core.application.domains.ProductDomain
 import br.com.fiap.techfood.core.application.domains.enums.CategoryEnum
+import br.com.fiap.techfood.core.application.domains.exceptions.ObjectNotFoundException
 import br.com.fiap.techfood.core.ports.inbound.ProductInboundPort
 import br.com.fiap.techfood.core.ports.outbound.repositories.ProductRepositoryCore
 import org.springframework.stereotype.Service
@@ -13,24 +14,26 @@ class ProductUseCase(
 ) : ProductInboundPort {
 
     override fun registerNewProduct(product: ProductDomain): ProductDomain {
+        product.id = null;
         return productRepositoryCore.save(product)
     }
 
     override fun updateProduct(id: UUID, updatedProduct: ProductDomain): ProductDomain {
-        var existingProduct = productRepositoryCore.findById(id)
-
-        existingProduct.name = updatedProduct.name
-        existingProduct.description = updatedProduct.description
-        existingProduct.price = updatedProduct.price
-        existingProduct.category= updatedProduct.category
-        existingProduct.imageURL = updatedProduct.imageURL
-
-        val productUpdated = productRepositoryCore.save(existingProduct)
-        return productUpdated
+        val productDomain = this.searchProductById(id)
+        productDomain.name = updatedProduct.name
+        productDomain.description = updatedProduct.description
+        productDomain.price = updatedProduct.price
+        productDomain.category = updatedProduct.category
+        productDomain.imageURL = updatedProduct.imageURL
+        return productRepositoryCore.save(updatedProduct)
     }
 
     override fun searchProductById(id: UUID): ProductDomain {
-        return productRepositoryCore.findById(id)
+        val productDomainOpt = productRepositoryCore.findById(id)
+        if (productDomainOpt.isEmpty) {
+            throw ObjectNotFoundException("Product with $id not found.")
+        }
+        return productDomainOpt.get();
     }
 
     override fun searchProductByCategory(category: CategoryEnum): List<ProductDomain> {
@@ -42,6 +45,7 @@ class ProductUseCase(
     }
 
     override fun deleteProduct(id: UUID) {
+        this.searchProductById(id);
         productRepositoryCore.delete(id)
     }
 

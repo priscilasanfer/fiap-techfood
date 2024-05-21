@@ -3,6 +3,7 @@ package br.com.fiap.techfood.core.ports.inbound
 import br.com.fiap.techfood.core.application.domains.CartDomain
 import br.com.fiap.techfood.core.application.domains.ClientDomain
 import br.com.fiap.techfood.core.application.domains.OrderDomain
+import br.com.fiap.techfood.core.application.domains.enums.OrderStatusEnum
 import java.util.*
 
 interface OrderInboundPort {

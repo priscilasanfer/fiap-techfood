@@ -1,6 +1,6 @@
 package br.com.fiap.techfood.adapters.inbound.mappers
 
-import br.com.fiap.techfood.adapters.dtos.OrderCreateDto
+import br.com.fiap.techfood.adapters.dtos.OrderCreateDTO
 import br.com.fiap.techfood.adapters.dtos.OrderItemDto
 import br.com.fiap.techfood.core.application.domains.CartDomain
 import br.com.fiap.techfood.core.application.domains.OrderItemDomain

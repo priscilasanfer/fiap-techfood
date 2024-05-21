@@ -62,7 +62,7 @@ class OrderUserCase(
     }
 
     override fun findById(id: UUID): OrderDomain {
-        val optOrderDomain = orderOutboundPort.findById(id);
+        val optOrderDomain = orderRepositoryCore.findById(id);
         if (optOrderDomain.isEmpty) {
             throw ObjectNotFoundException("Order $id not found.")
         }
@@ -70,7 +70,7 @@ class OrderUserCase(
     }
 
     override fun findAllByStatus(orderStatus: OrderStatusEnum): List<OrderDomain> {
-        return orderOutboundPort.findAllByOrderStatus(orderStatus)
+        return orderRepositoryCore.findAllByOrderStatus(orderStatus)
     }
 
     override fun delete(id: UUID) {

@@ -24,9 +24,9 @@ class ProductRepositoryAdapter(
         return productEntityMapper.toProductDomain(newProductEntity)
     }
 
-    override fun findById(id: UUID): ProductDomain {
-        val productEntity = productRepository.findById(id).orElseThrow()
-        return productEntityMapper.toProductDomain(productEntity!!)
+    override fun findById(id: UUID): Optional<ProductDomain> {
+        val productEntity = productRepository.findById(id)
+        return productEntity.map { productEntityMapper.toProductDomain(it) }
     }
 
     override fun findByCategory(category: CategoryEnum): List<ProductDomain> {
