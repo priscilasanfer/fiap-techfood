@@ -2,12 +2,13 @@ package br.com.fiap.techfood.adapters.dtos
 
 import org.jetbrains.annotations.NotNull
 
-class OrderCreateDTO (
+class OrderCreateDTO(
+
     @NotNull
-    var cart: CartDTO? = null,
+    var orderItems: List<OrderItemDto>? = null,
 
     @NotNull
     var orderName: String? = null,
 
-    var client: ClientDTO? = null,
+    var clientCpf: String? = null,
 )

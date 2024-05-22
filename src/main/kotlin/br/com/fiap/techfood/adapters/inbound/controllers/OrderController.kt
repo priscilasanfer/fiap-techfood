@@ -2,12 +2,9 @@ package br.com.fiap.techfood.adapters.inbound.controllers
 
 import br.com.fiap.techfood.adapters.dtos.OrderCreateDTO
 import br.com.fiap.techfood.adapters.dtos.OrderDto
-import br.com.fiap.techfood.adapters.inbound.mappers.CartMapper
-import br.com.fiap.techfood.adapters.inbound.mappers.ClientMapper
 import br.com.fiap.techfood.adapters.inbound.mappers.OrderMapper
-import br.com.fiap.techfood.core.application.domains.CartDomain
-import br.com.fiap.techfood.core.application.domains.ClientDomain
 import br.com.fiap.techfood.core.application.domains.OrderDomain
+import br.com.fiap.techfood.core.application.domains.OrderRequestDomain
 import br.com.fiap.techfood.core.application.domains.enums.OrderStatusEnum
 import br.com.fiap.techfood.core.ports.inbound.OrderInboundPort
 import org.springframework.http.ResponseEntity
@@ -20,20 +17,12 @@ import java.util.*
 class OrderController(
     private val orderInboundPort: OrderInboundPort,
     private val orderMapper: OrderMapper,
-    private val clientMapper: ClientMapper,
-    private val cartMapper: CartMapper
 ) {
 
     @PostMapping
     fun makeOrder(@RequestBody @Validated orderCreateDto: OrderCreateDTO): ResponseEntity<OrderDomain> {
-        val cartDomain: CartDomain = cartMapper.toCartDomain(orderCreateDto);
-        var clientDomain: ClientDomain? = null
-
-        if (orderCreateDto.client != null) {
-            clientDomain = clientMapper.toClientDomain(orderCreateDto.client!!);
-        }
-
-        val response = orderInboundPort.save(cartDomain, clientDomain)
+        val cartDomain: OrderRequestDomain = orderMapper.toOrderRequestDomain(orderCreateDto);
+        val response = orderInboundPort.save(cartDomain, orderCreateDto.clientCpf)
         return ResponseEntity.ok().body(response);
     }
 

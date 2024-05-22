@@ -10,5 +10,5 @@ class OrderDto(
     var items: List<OrderItemDto>? = listOf(),
     var status: OrderStatusEnum? = null,
     var isAnonymous: Boolean? = null,
-    var client: ClientDomain? = null,
+    var client: ClientDTO? = null,
 )

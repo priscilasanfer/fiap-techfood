@@ -1,9 +1,9 @@
 package br.com.fiap.techfood.adapters.configs
 
 import br.com.fiap.techfood.TechfoodApplication
+import br.com.fiap.techfood.adapters.outbound.ClientRepositoryAdapter
 import br.com.fiap.techfood.adapters.outbound.OrderRepositoryAdapter
 import br.com.fiap.techfood.adapters.outbound.ProductRepositoryAdapter
-import br.com.fiap.techfood.adapters.outbound.ValidateCpfAdapter
 import br.com.fiap.techfood.core.application.usecases.ClientUseCase
 import br.com.fiap.techfood.core.application.usecases.OrderUserCase
 import br.com.fiap.techfood.core.ports.outbound.repositories.ClientRepositoryCore
@@ -24,11 +24,11 @@ class BeanConfiguration {
 
     @Bean
     fun orderUserCase(
-        validateCpfAdapter: ValidateCpfAdapter,
         orderRepositoryAdapter: OrderRepositoryAdapter,
-        productRepositoryAdapter: ProductRepositoryAdapter
+        productRepositoryAdapter: ProductRepositoryAdapter,
+        clientRepositoryAdapter: ClientRepositoryAdapter
     ): OrderUserCase {
-        return OrderUserCase(validateCpfAdapter, orderRepositoryAdapter, productRepositoryAdapter);
+        return OrderUserCase(orderRepositoryAdapter, productRepositoryAdapter, clientRepositoryAdapter);
     }
 
     @Bean
