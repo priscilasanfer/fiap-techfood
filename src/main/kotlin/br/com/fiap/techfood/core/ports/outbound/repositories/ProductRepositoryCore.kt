@@ -6,7 +6,7 @@ import java.util.*
 
 interface ProductRepositoryCore {
     fun save(product: ProductDomain): ProductDomain
-    fun findById(id: UUID): ProductDomain
+    fun findById(id: UUID): Optional<ProductDomain>
     fun findByCategory(category: CategoryEnum): List<ProductDomain>
     fun findAll(): List<ProductDomain>
     fun delete(id: UUID)

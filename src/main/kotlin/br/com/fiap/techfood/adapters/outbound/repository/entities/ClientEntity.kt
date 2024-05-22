@@ -1,7 +1,6 @@
 package br.com.fiap.techfood.adapters.outbound.repository.entities
 
 import jakarta.persistence.*
-import org.hibernate.validator.constraints.br.CPF
 import java.util.UUID
 
 @Entity

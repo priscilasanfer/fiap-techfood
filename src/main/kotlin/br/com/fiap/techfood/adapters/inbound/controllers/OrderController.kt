@@ -1,65 +1,63 @@
 package br.com.fiap.techfood.adapters.inbound.controllers
 
-import br.com.fiap.techfood.adapters.dtos.OrderCreateDto
+import br.com.fiap.techfood.adapters.dtos.OrderCreateDTO
 import br.com.fiap.techfood.adapters.dtos.OrderDto
-import br.com.fiap.techfood.adapters.inbound.mappers.CartMapper
-import br.com.fiap.techfood.adapters.inbound.mappers.ClientMapper
 import br.com.fiap.techfood.adapters.inbound.mappers.OrderMapper
-import br.com.fiap.techfood.core.application.domains.CartDomain
-import br.com.fiap.techfood.core.application.domains.ClientDomain
 import br.com.fiap.techfood.core.application.domains.OrderDomain
+import br.com.fiap.techfood.core.application.domains.OrderRequestDomain
+import br.com.fiap.techfood.core.application.domains.enums.OrderStatusEnum
 import br.com.fiap.techfood.core.ports.inbound.OrderInboundPort
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
 import org.springframework.validation.annotation.Validated
-import org.springframework.web.bind.annotation.DeleteMapping
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 import java.util.*
 
 @RestController
 @RequestMapping("/orders")
 class OrderController(
-    @Autowired private val orderInboundPort: OrderInboundPort,
-    @Autowired private val orderMapper: OrderMapper,
-    @Autowired private val clientMapper: ClientMapper,
-    @Autowired private val cartMapper: CartMapper
+    private val orderInboundPort: OrderInboundPort,
+    private val orderMapper: OrderMapper,
 ) {
 
     @PostMapping
-    fun makeOrder(@RequestBody @Validated orderCreateDto: OrderCreateDto): ResponseEntity<OrderDomain> {
-        val cartDomain: CartDomain = cartMapper.toCartDomain(orderCreateDto);
-        var clientDomain: ClientDomain? = null
-
-        if (orderCreateDto.client != null) {
-            clientDomain = clientMapper.toClientDomain(orderCreateDto.client!!);
-        }
-
-        val response = orderInboundPort.save(cartDomain, clientDomain)
+    fun makeOrder(@RequestBody @Validated orderCreateDto: OrderCreateDTO): ResponseEntity<OrderDomain> {
+        val cartDomain: OrderRequestDomain = orderMapper.toOrderRequestDomain(orderCreateDto);
+        val response = orderInboundPort.save(cartDomain, orderCreateDto.clientCpf)
         return ResponseEntity.ok().body(response);
+    }
+
+    @GetMapping("/awaiting-payment")
+    fun findAllAwaitingPayment(): ResponseEntity<List<OrderDto>> {
+        val orderDomainList = orderInboundPort.findAllByStatus(OrderStatusEnum.AWAITING_PAYMENT);
+        val orderDtoList = orderDomainList.map { orderMapper.toOrderDto(it) }
+        return ResponseEntity.ok().body(orderDtoList);
     }
 
     @GetMapping("/approved")
     fun findAllApprovedOrders(): ResponseEntity<List<OrderDto>> {
-        val orderDomainList = orderInboundPort.findAllApprovedOrders();
+        val orderDomainList = orderInboundPort.findAllByStatus(OrderStatusEnum.PAYMENT_APPROVED);
         val orderDtoList = orderDomainList.map { orderMapper.toOrderDto(it) }
         return ResponseEntity.ok().body(orderDtoList);
     }
 
     @GetMapping("/prepared")
     fun findAllPreparedOrders(): ResponseEntity<List<OrderDto>> {
-        val orderDomainList = orderInboundPort.findAllPrepared();
+        val orderDomainList = orderInboundPort.findAllByStatus(OrderStatusEnum.PREPARED);
+        val orderDtoList = orderDomainList.map { orderMapper.toOrderDto(it) }
+        return ResponseEntity.ok().body(orderDtoList);
+    }
+
+    @GetMapping("/finished")
+    fun findAllFinishedOrders(): ResponseEntity<List<OrderDto>> {
+        val orderDomainList = orderInboundPort.findAllByStatus(OrderStatusEnum.FINISHED);
         val orderDtoList = orderDomainList.map { orderMapper.toOrderDto(it) }
         return ResponseEntity.ok().body(orderDtoList);
     }
 
     @DeleteMapping("/{orderId}")
-    fun deleteOrder(@PathVariable orderId: UUID) {
+    fun deleteOrder(@PathVariable orderId: UUID): ResponseEntity<Void> {
         orderInboundPort.delete(orderId);
+        return ResponseEntity.noContent().build();
     }
 
     @PostMapping("/{orderId}/pay")
@@ -77,6 +75,5 @@ class OrderController(
     fun finishOrder(@PathVariable orderId: UUID) {
         orderInboundPort.finishOrder(orderId);
     }
-
 
 }

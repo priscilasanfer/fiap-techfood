@@ -7,6 +7,7 @@ import br.com.fiap.techfood.core.application.domains.enums.CategoryEnum
 import br.com.fiap.techfood.core.ports.outbound.repositories.ProductRepositoryCore
 import jakarta.transaction.Transactional
 import org.springframework.stereotype.Component
+import java.util.Optional
 import java.util.UUID
 
 @Component
@@ -23,13 +24,13 @@ class ProductRepositoryAdapter(
         return productEntityMapper.toProductDomain(newProductEntity)
     }
 
-    override fun findById(id: UUID): ProductDomain {
-        val productEntity = productRepository.findById(id).orElseThrow()
-        return productEntityMapper.toProductDomain(productEntity!!)
+    override fun findById(id: UUID): Optional<ProductDomain> {
+        val productEntity = productRepository.findById(id)
+        return productEntity.map { productEntityMapper.toProductDomain(it) }
     }
 
     override fun findByCategory(category: CategoryEnum): List<ProductDomain> {
-        val productEntities = productRepository.findByCategory(category)
+        val productEntities = productRepository.findByCategory(category.id)
         return productEntities.map { productEntity ->
             productEntityMapper.toProductDomain(productEntity)
         }
