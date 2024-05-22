@@ -3,8 +3,8 @@
 		"_postman_id": "a388cfb9-7ba1-4975-8908-8a28a58a2469",
 		"name": "Fiap-Foodtech",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "8774671",
-		"_collection_link": "https://bold-flare-377647.postman.co/workspace/Fiap-Pos-Tech-Workspace~7b179154-6a34-4d90-839a-89a0af4bfd65/collection/8774671-a388cfb9-7ba1-4975-8908-8a28a58a2469?action=share&source=collection_link&creator=8774671"
+		"_exporter_id": "21534302",
+		"_collection_link": "https://fiap-pos-tech.postman.co/workspace/Fiap-Pos-Tech-Workspace~7b179154-6a34-4d90-839a-89a0af4bfd65/collection/8774671-a388cfb9-7ba1-4975-8908-8a28a58a2469?action=share&source=collection_link&creator=21534302"
 	},
 	"item": [
 		{
@@ -17,7 +17,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"cpf\":\"132\",\r\n    \"name\":\"Joao\",\r\n    \"email\":\"email.joao@domain.com\"\r\n}",
+							"raw": "{\r\n    \"cpf\":\"12345678988\",\r\n    \"name\":\"Joao Lima\",\r\n    \"email\":\"lima.joao@domain.com\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -25,12 +25,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/clients",
-							"protocol": "http",
+							"raw": "{{base_url}}/clients",
 							"host": [
-								"localhost"
+								"{{base_url}}"
 							],
-							"port": "8080",
 							"path": [
 								"clients"
 							]
@@ -44,12 +42,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/clients/cpf/132",
-							"protocol": "http",
+							"raw": "{{base_url}}/clients/cpf/132",
 							"host": [
-								"localhost"
+								"{{base_url}}"
 							],
-							"port": "8080",
 							"path": [
 								"clients",
 								"cpf",
@@ -65,12 +61,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/clients",
-							"protocol": "http",
+							"raw": "{{base_url}}/clients",
 							"host": [
-								"localhost"
+								"{{base_url}}"
 							],
-							"port": "8080",
 							"path": [
 								"clients"
 							]
@@ -88,13 +82,20 @@
 					"request": {
 						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Guarana\",\n    \"description\": \"Guarana lata\",\n    \"price\": 5.99,\n    \"category\": \"DRINK\",\n    \"imageURL\": \"https://example.com/image.jpg\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "http://localhost:8080/products",
-							"protocol": "http",
+							"raw": "{{base_url}}/products",
 							"host": [
-								"localhost"
+								"{{base_url}}"
 							],
-							"port": "8080",
 							"path": [
 								"products"
 							]
@@ -108,12 +109,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/products",
-							"protocol": "http",
+							"raw": "{{base_url}}/products",
 							"host": [
-								"localhost"
+								"{{base_url}}"
 							],
-							"port": "8080",
 							"path": [
 								"products"
 							]
@@ -125,7 +124,17 @@
 					"name": "Product by Id",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/products/f2be4518-ee64-41d6-8d46-8e0c9cd210a8",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"products",
+								"f2be4518-ee64-41d6-8d46-8e0c9cd210a8"
+							]
+						}
 					},
 					"response": []
 				},
@@ -133,7 +142,23 @@
 					"name": "Product by Category",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/products/category?name=SNACK",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"products",
+								"category"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "SNACK"
+								}
+							]
+						}
 					},
 					"response": []
 				},
@@ -142,16 +167,23 @@
 					"request": {
 						"method": "PUT",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n        \"name\": \"Batata frita pequena\",\n        \"description\": \"Batata frita pequena\",\n        \"price\": 9.99,\n        \"category\": \"SIDE_DISH\",\n        \"imageURL\": \"https://example.com/image.jpg\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "http://localhost:8080/products/abb20236-356c-4776-87ba-6d6cc97d25ca",
-							"protocol": "http",
+							"raw": "{{base_url}}/products/f2be4518-ee64-41d6-8d46-8e0c9cd210a8",
 							"host": [
-								"localhost"
+								"{{base_url}}"
 							],
-							"port": "8080",
 							"path": [
 								"products",
-								"abb20236-356c-4776-87ba-6d6cc97d25ca"
+								"f2be4518-ee64-41d6-8d46-8e0c9cd210a8"
 							]
 						}
 					},
@@ -163,12 +195,10 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/d241e3bd-ef7f-4ec2-b366-d1873abbbfc2",
-							"protocol": "http",
+							"raw": "{{base_url}}/d241e3bd-ef7f-4ec2-b366-d1873abbbfc2",
 							"host": [
-								"localhost"
+								"{{base_url}}"
 							],
-							"port": "8080",
 							"path": [
 								"d241e3bd-ef7f-4ec2-b366-d1873abbbfc2"
 							]
@@ -180,7 +210,210 @@
 		},
 		{
 			"name": "Order",
-			"item": []
+			"item": [
+				{
+					"name": "New Order",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"orderItems\": [\n        {\n            \"productId\": \"f47ac10b-58cc-4372-a567-0e02b2c3d479\",\n            \"quantity\": 3,\n            \"description\": \"Sem Cebola\"\n        },\n        {\n            \"productId\": \"c9bf9e57-1685-4c89-bafb-ff5af830be8a\",\n            \"quantity\": 2,\n            \"description\": \"Sem Maionese\"\n        }\n    ],\n    \"orderName\": \"João M\",\n    \"clientCpf\": \"12345678988\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/orders",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Pay Order",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/orders/c4935ea9-9a11-4585-8344-8002ff79bf46/pay",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"orders",
+								"c4935ea9-9a11-4585-8344-8002ff79bf46",
+								"pay"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Prepare Order",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/orders/c4935ea9-9a11-4585-8344-8002ff79bf46/prepare",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"orders",
+								"c4935ea9-9a11-4585-8344-8002ff79bf46",
+								"prepare"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Finish Order",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/orders/c4935ea9-9a11-4585-8344-8002ff79bf46/finish",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"orders",
+								"c4935ea9-9a11-4585-8344-8002ff79bf46",
+								"finish"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "All Orders Awating Payment",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/orders/awaiting-payment",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"orders",
+								"awaiting-payment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "All Orders Approved",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/orders/approved",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"orders",
+								"approved"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "All Orders Prepared",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/orders/prepared",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"orders",
+								"prepared"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "All Orders Finished",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/orders/finished",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"orders",
+								"finished"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Order",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/orders/c4935ea9-9a11-4585-8344-8002ff79bf46",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"orders",
+								"c4935ea9-9a11-4585-8344-8002ff79bf46"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8080",
+			"type": "string"
 		}
 	]
 }
