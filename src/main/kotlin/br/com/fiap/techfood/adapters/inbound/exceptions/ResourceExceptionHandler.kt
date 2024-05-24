@@ -5,6 +5,7 @@ import br.com.fiap.techfood.core.application.domains.exceptions.ObjectNotFoundEx
 import jakarta.servlet.http.HttpServletRequest
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.annotation.ControllerAdvice
 import org.springframework.web.bind.annotation.ExceptionHandler
 
@@ -22,4 +23,15 @@ class ResourceExceptionHandler {
         val err = StandardError(HttpStatus.BAD_REQUEST.value(), e.message!!, System.currentTimeMillis())
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err)
     }
+
+    @ExceptionHandler(MethodArgumentNotValidException::class)
+    fun methodArgumentNotValid(
+        e: MethodArgumentNotValidException,
+        request: HttpServletRequest
+    ): ResponseEntity<StandardError> {
+        val errors = e.bindingResult.fieldErrors.map { it.defaultMessage }.joinToString(", ")
+        val err = StandardError(HttpStatus.BAD_REQUEST.value(), errors, System.currentTimeMillis())
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err)
+    }
+
 }

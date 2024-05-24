@@ -6,10 +6,8 @@ import br.com.fiap.techfood.core.application.domains.exceptions.ObjectNotFoundEx
 import br.com.fiap.techfood.core.application.usecases.mappers.ProductMapperCore
 import br.com.fiap.techfood.core.ports.inbound.ProductInboundPort
 import br.com.fiap.techfood.core.ports.outbound.repositories.ProductRepositoryCore
-import org.springframework.stereotype.Service
 import java.util.*
 
-@Service
 class ProductUseCase(
     private var repository: ProductRepositoryCore,
     private var mapper: ProductMapperCore
