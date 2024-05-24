@@ -14,6 +14,6 @@ interface OrderRepositoryCore {
 
     fun delete(id: UUID)
 
-    //CHECAR QUAIS PARAMS ID?
     fun updateStatus(id: UUID, status: OrderStatusEnum)
+
 }

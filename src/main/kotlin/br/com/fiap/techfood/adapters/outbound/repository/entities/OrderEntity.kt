@@ -20,14 +20,6 @@ class OrderEntity {
     @Column(nullable = false)
     private var status: Int? = null
 
-    public fun getStatus(): OrderStatusEnum? {
-        return OrderStatusEnum.toEnum(this.status)
-    }
-
-    public fun setStatus(status: OrderStatusEnum) {
-        this.status = status.code
-    }
-
     var isAnonymous: Boolean? = null
 
     @OneToMany(mappedBy = "id.order")
@@ -53,4 +45,13 @@ class OrderEntity {
     private fun beforeUpdate() {
         this.lastUpdateDate = LocalDateTime.now()
     }
+
+    fun getStatus(): OrderStatusEnum? {
+        return OrderStatusEnum.toEnum(this.status)
+    }
+
+    fun setStatus(status: OrderStatusEnum) {
+        this.status = status.code
+    }
+
 }

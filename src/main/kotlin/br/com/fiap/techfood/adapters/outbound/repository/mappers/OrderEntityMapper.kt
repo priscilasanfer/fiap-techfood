@@ -6,19 +6,15 @@ import br.com.fiap.techfood.core.application.domains.OrderItemDomain
 import org.springframework.stereotype.Component
 
 @Component
-class OrderEntityMapper {
+class OrderEntityMapper(
+    private val clientEntityMapper: ClientEntityMapper
+) {
 
     fun toOrderEntity(orderDomain: OrderDomain): OrderEntity {
         val orderEntity = OrderEntity()
-        //orderEntity.items.addAll(toOrderItemEntityList(orderDomain.items!!, orderEntity))
         orderEntity.setStatus(orderDomain.status);
         orderEntity.isAnonymous = orderDomain.isAnonymous;
         orderEntity.name = orderDomain.name
-
-        if (orderDomain.isAnonymous!! && orderDomain.client != null) {
-            orderEntity.client = ClientEntity(orderDomain.id!!);
-        }
-
         return orderEntity;
     }
 
@@ -30,6 +26,10 @@ class OrderEntityMapper {
         orderDomain.status = orderEntity.getStatus()!!;
         orderDomain.isAnonymous = orderEntity.isAnonymous;
         orderDomain.name = orderEntity.name
+
+        if (orderEntity.client?.id != null) {
+            orderDomain.client = clientEntityMapper.toClientDomain(orderEntity.client!!);
+        }
 
         return orderDomain;
     }

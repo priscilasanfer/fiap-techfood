@@ -6,7 +6,7 @@ import java.util.*
 
 data class ProductDomain(
 
-    val id: UUID? = null,
+    var id: UUID? = null,
     var name: String,
     var description: String,
     var price: BigDecimal,

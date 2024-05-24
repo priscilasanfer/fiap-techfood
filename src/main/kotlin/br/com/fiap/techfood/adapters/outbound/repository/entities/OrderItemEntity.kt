@@ -19,7 +19,4 @@ class OrderItemEntity {
 
     var description: String? = null
 
-    //TODO CHECAR SE VAI PRECISAR DESSES CAMPOS
-    //private BigDecimal discount;
-    //private BigDecimal price;
 }

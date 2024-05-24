@@ -1,5 +1,7 @@
 package br.com.fiap.techfood.adapters.outbound
 
+import br.com.fiap.techfood.adapters.inbound.mappers.ClientMapper
+import br.com.fiap.techfood.adapters.outbound.repository.ClientRepository
 import br.com.fiap.techfood.adapters.outbound.repository.OrderItemRepository
 import br.com.fiap.techfood.adapters.outbound.repository.OrderRepository
 import br.com.fiap.techfood.adapters.outbound.repository.entities.OrderEntity
@@ -11,6 +13,7 @@ import jakarta.transaction.Transactional
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 import java.util.*
+import kotlin.jvm.optionals.getOrNull
 
 @Component
 class OrderRepositoryAdapter(
@@ -21,13 +24,21 @@ class OrderRepositoryAdapter(
     private val orderItemRepository: OrderItemRepository,
 
     @Autowired
-    private val orderEntityMapper: OrderEntityMapper
-) : OrderRepositoryCore {
+    private val orderEntityMapper: OrderEntityMapper,
+
+    @Autowired
+    private val clientRepository: ClientRepository,
+
+    ) : OrderRepositoryCore {
 
 
     @Transactional
     override fun save(orderDomain: OrderDomain): OrderDomain {
         var orderEntity = orderEntityMapper.toOrderEntity(orderDomain)
+
+        if (orderDomain.client?.id != null) {
+            orderEntity.client = clientRepository.findById(orderDomain.client!!.id!!).getOrNull();
+        }
         orderEntity = orderRepository.save(orderEntity)
 
         val orderItemsEntity = orderEntityMapper.toOrderItemEntityList(orderDomain.items!!, orderEntity)
@@ -48,7 +59,16 @@ class OrderRepositoryAdapter(
     }
 
     override fun delete(id: UUID) {
-        orderRepository.deleteById(id)
+        val orderEntityOpt = orderRepository.findById(id)
+
+        if (orderEntityOpt.isPresent) {
+            val orderItemEntityList = orderItemRepository.findAllByIdOrder(orderEntityOpt.get())
+            if (orderItemEntityList.isNotEmpty()) {
+                orderItemRepository.deleteAll(orderItemEntityList)
+            }
+            orderRepository.deleteById(id)
+        }
+
     }
 
     override fun updateStatus(id: UUID, status: OrderStatusEnum) {

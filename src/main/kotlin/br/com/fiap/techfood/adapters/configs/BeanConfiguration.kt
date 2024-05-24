@@ -1,16 +1,15 @@
 package br.com.fiap.techfood.adapters.configs
 
 import br.com.fiap.techfood.TechfoodApplication
+import br.com.fiap.techfood.adapters.outbound.ClientRepositoryAdapter
 import br.com.fiap.techfood.adapters.outbound.OrderRepositoryAdapter
 import br.com.fiap.techfood.adapters.outbound.ProductRepositoryAdapter
-import br.com.fiap.techfood.adapters.outbound.ValidateCpfAdapter
 import br.com.fiap.techfood.core.application.usecases.ClientUseCase
 import br.com.fiap.techfood.core.application.usecases.OrderUserCase
-import br.com.fiap.techfood.core.ports.outbound.repositories.ClientRepositoryCore
 import br.com.fiap.techfood.core.application.usecases.ProductUseCase
+import br.com.fiap.techfood.core.application.usecases.mappers.ProductMapperCore
+import br.com.fiap.techfood.core.ports.outbound.repositories.ClientRepositoryCore
 import br.com.fiap.techfood.core.ports.outbound.repositories.ProductRepositoryCore
-import io.swagger.v3.oas.models.OpenAPI
-import io.swagger.v3.oas.models.info.Info
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.ComponentScan
 import org.springframework.context.annotation.Configuration
@@ -26,36 +25,16 @@ class BeanConfiguration {
 
     @Bean
     fun orderUserCase(
-        validateCpfAdapter: ValidateCpfAdapter,
         orderRepositoryAdapter: OrderRepositoryAdapter,
-        productRepositoryAdapter: ProductRepositoryAdapter
+        productRepositoryAdapter: ProductRepositoryAdapter,
+        clientRepositoryAdapter: ClientRepositoryAdapter
     ): OrderUserCase {
-        return OrderUserCase(validateCpfAdapter, orderRepositoryAdapter, productRepositoryAdapter);
+        return OrderUserCase(orderRepositoryAdapter, productRepositoryAdapter, clientRepositoryAdapter);
     }
 
     @Bean
-    fun productUseCase(persistence: ProductRepositoryCore): ProductUseCase {
-        return ProductUseCase(persistence)
+    fun productUseCase(persistence: ProductRepositoryCore, productMapperCore: ProductMapperCore): ProductUseCase {
+        return ProductUseCase(persistence, productMapperCore)
     }
 
 }
-
-@Configuration
-class SwaggerConfiguration {
-    @Bean
-    fun springShopOpenAPI(): OpenAPI {
-        return OpenAPI()
-            .info(
-                Info()
-                    .title("Tech Food")
-                    .description("Tech Food backend application")
-            )
-        // Vou deixar para referencia futura:
-        //.externalDocs(
-        //    ExternalDocumentation()
-        //        .description("SpringShop Wiki Documentation")
-        //        .url("https://springshop.wiki.github.org/docs")
-        //)
-    }
-}
-

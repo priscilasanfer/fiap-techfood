@@ -5,7 +5,7 @@ import br.com.fiap.techfood.core.application.domains.ClientDomain
 import org.springframework.data.jpa.repository.JpaRepository
 import java.util.*
 
-interface ClientRepository : JpaRepository<ClientEntity?, Long?> {
+interface ClientRepository : JpaRepository<ClientEntity, Long?> {
     fun save(client: ClientDomain): ClientEntity
     fun findById(id: UUID): Optional<ClientEntity>
     fun findByCpf(cpf: String): Optional<ClientEntity>

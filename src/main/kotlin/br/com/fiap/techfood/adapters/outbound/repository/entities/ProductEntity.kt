@@ -25,14 +25,6 @@ class ProductEntity {
     @Column(nullable = false)
     var category: Int? = null
 
-    public fun getCategory(): CategoryEnum? {
-        return CategoryEnum.toEnum(this.category)
-    }
-
-    public fun setCategory(category: CategoryEnum) {
-        this.category = category.id
-    }
-
     @Column(nullable = false)
     var imageURL: String? = null
 
@@ -51,4 +43,13 @@ class ProductEntity {
         this.category = category.id;
         this.imageURL = imageURL;
     }
+
+    fun getCategory(): CategoryEnum? {
+        return CategoryEnum.toEnum(this.category)
+    }
+
+    fun setCategory(category: CategoryEnum) {
+        this.category = category.id
+    }
+
 }
