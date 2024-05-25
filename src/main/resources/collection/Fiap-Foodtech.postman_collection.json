@@ -17,7 +17,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"cpf\":\"12345678988\",\r\n    \"name\":\"Joao Lima\",\r\n    \"email\":\"lima.joao@domain.com\"\r\n}",
+							"raw": "{\r\n    \"cpf\":\"73986454063\",\r\n    \"name\":\"Joao Lima\",\r\n    \"email\":\"lima.joao@domain.com\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -177,13 +177,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{base_url}}/products/f2be4518-ee64-41d6-8d46-8e0c9cd210a8",
+							"raw": "{{base_url}}/products/bbd395af-f347-4ca6-8c66-c03e2c5e8648",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
 								"products",
-								"f2be4518-ee64-41d6-8d46-8e0c9cd210a8"
+								"bbd395af-f347-4ca6-8c66-c03e2c5e8648"
 							]
 						}
 					},
@@ -195,12 +195,13 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{base_url}}/d241e3bd-ef7f-4ec2-b366-d1873abbbfc2",
+							"raw": "{{base_url}}/products/bbd395af-f347-4ca6-8c66-c03e2c5e8648",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
-								"d241e3bd-ef7f-4ec2-b366-d1873abbbfc2"
+								"products",
+								"bbd395af-f347-4ca6-8c66-c03e2c5e8648"
 							]
 						}
 					},
