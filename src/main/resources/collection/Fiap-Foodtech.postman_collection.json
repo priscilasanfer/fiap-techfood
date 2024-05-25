@@ -1,10 +1,9 @@
 {
 	"info": {
-		"_postman_id": "a388cfb9-7ba1-4975-8908-8a28a58a2469",
+		"_postman_id": "52b79fb2-1e16-468a-b9f2-df0ebc7e7523",
 		"name": "Fiap-Foodtech",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "21534302",
-		"_collection_link": "https://fiap-pos-tech.postman.co/workspace/Fiap-Pos-Tech-Workspace~7b179154-6a34-4d90-839a-89a0af4bfd65/collection/8774671-a388cfb9-7ba1-4975-8908-8a28a58a2469?action=share&source=collection_link&creator=21534302"
+		"_exporter_id": "8774671"
 	},
 	"item": [
 		{
