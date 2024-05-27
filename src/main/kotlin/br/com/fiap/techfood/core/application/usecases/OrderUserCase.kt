@@ -39,6 +39,7 @@ class OrderUserCase(
                 throw DataIntegrityException("Client with CPF $clientCpf not found. Make sure you have a registration.")
             }
             orderDomain.client = clientDomainOpt.get();
+            orderDomain.isAnonymous = false;
         }
 
         orderRequest.requestProducts!!.forEach {
